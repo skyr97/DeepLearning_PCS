@@ -157,7 +157,10 @@ class AddLossLayer(layers.Layer):
     def call(self, inputs, **kwargs):
         y_true = inputs[0]
         y_pred = inputs[1]
-        return keras.losses.binary_crossentropy(y_true, y_pred)
+        prob_s = inputs[2]
+        loss = keras.losses.binary_crossentropy(y_true, y_pred)++ 1 * tf.math.reduce_sum(
+            tf.reduce_mean(tf.math.multiply(prob_s, tf.math.log(tf.math.maximum(prob_s,1e-7))), axis=0))
+        return loss
 
 
 class BaseConstellationShaping:
@@ -232,14 +235,16 @@ class BitwiseShaping(BaseConstellationShaping):
         self._channel()
         self._decoder()
         # bce = keras.losses.BinaryCrossentropy()(self.binary_sym, self.decode_out)
-        bce = AddLossLayer()([self.binary_sym,self.decode_out])
+        custom_loss = AddLossLayer()([self.binary_sym, self.decode_out,self.prob])
         self.hard_dicision_bit = tf.math.rint(self.decode_out)
         ber = keras.backend.mean(self.hard_dicision_bit != self.binary_sym)
         self.model = keras.Model(inputs=[self.snr_input, self.gumbel_input, self.noise], outputs=self.decode_out)
         self.model: keras.Model
-        self.model.add_loss(bce)
+        self.model.add_loss(custom_loss)
         self.model.add_metric(ber, name='ber')
         self.model.compile(optimizer=keras.optimizers.Adam(self.learning_rate))
+        self.logits_model = keras.Model(inputs=self.snr_input,outputs=self.logits)
+        self.tx_model = keras.Model(inputs=[self.snr_input,self.gumbel_input],outputs=self.tx_norm)
 
     def train_data_generator(self):
         snr_data = self.snr * np.ones([self.train_batch_size, 1], dtype=np.float32)
@@ -254,23 +259,41 @@ class BitwiseShaping(BaseConstellationShaping):
         # noise = tf.random.normal(mean=0, stddev=self.noise_sigma,
         #                          shape=[self.train_batch_size * self.steps_per_epoch, 2])
         # print(self.binary_sym)
+        cbs = [
+            keras.callbacks.EarlyStopping(monitor='loss',patience=2,verbose=1,mode='min')
+        ]
         self.model.fit(self.train_data_generator(),batch_size=self.train_batch_size, epochs=self.epochs,steps_per_epoch=self.steps_per_epoch)
         # self.model.fit(x={'snr_input': snr_data, 'gumbel_inputs': gumbel_data, 'noise': noise},
         #                epochs=self.epochs, batch_size=self.train_batch_size)
 
     def cons_point_generate(self):
-        pass
+        snr_d = self.snr*np.ones([self.M,1],dtype=np.float32)
+        logits_out = self.logits_model(snr_d).numpy()
+        gumbel_d = keras.utils.to_categorical(np.arange(self.M),self.M)
+        self.sym_model = keras.Model(inputs=[self.snr_input,self.gumbel_input],outputs=self.sym)
+        sym = self.sym_model([snr_d,gumbel_d])
+        tx_norm = self.tx_model([snr_d,gumbel_d]).numpy()
+        prob_s = tf.math.softmax(logits_out)
+        prob_s = np.array(prob_s[0]).reshape([-1])
+        s = prob_s*100
+        print(logits_out)
+        print(sym)
+        plt.scatter(tx_norm[:,0],tx_norm[:,1],s=s)
+        plt.show()
+        plt.plot(prob_s)
+        plt.show()
 
 
 if __name__ == '__main__':
     comm.set_device(only_cpu=True)
     comm.redirect2log('log.log')
-    bitwise_shaper = BitwiseShaping(M=16, snr=8, EborEs=True)
+    bitwise_shaper = BitwiseShaping(M=64, snr=14, EborEs=True)
     bitwise_shaper.create_model()
     bitwise_shaper.model.summary()
-    keras.utils.plot_model(bitwise_shaper.model,show_shapes=True)
-    bitwise_shaper.model.evaluate(bitwise_shaper.train_data_generator(), steps=10)
+    # keras.utils.plot_model(bitwise_shaper.model,show_shapes=True)
+    # bitwise_shaper.model.evaluate(bitwise_shaper.train_data_generator(), steps=10)
     bitwise_shaper.train()
+    bitwise_shaper.cons_point_generate()
 
     # debug
     # 前向可以跑通
