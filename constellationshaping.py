@@ -1,0 +1,235 @@
+# -*- coding: utf-8 -*-
+
+import tensorflow as tf
+import numpy as np
+import datetime
+from tensorflow import keras
+from tensorflow.keras import layers
+import matplotlib.pyplot as plt
+from scipy.io import savemat
+import os
+import json
+import math
+import comm_operation as comm
+
+# global variable
+log_2 = math.log(2.0)
+
+# the matrixs can convert one_hot symbol to binary code
+sym2bin_map16 = []
+for x in range(16):
+    tmp_list = []
+    for _ in range(4):
+        tmp_list.append(x % 2)
+        x //= 2
+    tmp_list.reverse()
+    sym2bin_map16.append(tmp_list)
+sym2bin_map16 = np.array(sym2bin_map16, dtype=np.float32)
+
+sym2bin_map64 = []
+for x in range(64):
+    tmp_list = []
+    for _ in range(6):
+        tmp_list.append(x % 2)
+        x //= 2
+    tmp_list.reverse()
+    sym2bin_map64.append(tmp_list)
+sym2bin_map64 = np.array(sym2bin_map64, dtype=np.float32)
+
+sym2bin_map256 = []
+for x in range(256):
+    tmp_list = []
+    for _ in range(8):
+        tmp_list.append(x % 2)
+        x //= 2
+    tmp_list.reverse()
+    sym2bin_map256.append(tmp_list)
+sym2bin_map256 = np.array(sym2bin_map256, dtype=np.float32)
+mapper_dict = {16: sym2bin_map16, 64: sym2bin_map64, 256: sym2bin_map256}
+
+
+@tf.custom_gradient
+def ste(x):
+    M = x.shape[-1]
+    y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
+
+    def grad(dy):
+        return 0
+
+    return y, grad
+
+
+@tf.custom_gradient
+def sym2bin(x):
+    M = int(x.shape[-1])
+    y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
+    y = tf.matmul(y, mapper_dict[M])
+
+    def grad(dy):
+        return dy * 0
+
+    return y, grad
+
+
+@tf.custom_gradient
+def tanh_nonlinear(x):
+    y = tf.tanh(x)
+
+    def grad(dy):
+        return dy
+
+    return y, grad
+
+
+def standard_gumbel(shape):
+    t = keras.backend.random_uniform(shape=shape, minval=0.0, maxval=1.0)
+    y = -keras.backend.log(-keras.backend.log(t))
+    return y
+
+
+class AwgnChannel(layers.Layer):
+
+    def __init__(self, **kwargs):
+        super(AwgnChannel, self).__init__(**kwargs)
+
+    def call(self, inputs, **kwargs):
+        return layers.Add()(inputs)
+
+
+class NonlinearChannelKnown(layers.Layer):
+    def __init__(self, **kwargs):
+        super(NonlinearChannelKnown, self).__init__(**kwargs)
+
+    def call(self, inputs, **kwargs):
+        y = tf.tanh(inputs)
+        return y
+
+
+class NonlinearChannelUnkown(layers.Layer):
+    def __init__(self, **kwargs):
+        super(NonlinearChannelUnkown, self).__init__()
+
+    def call(self, inputs, **kwargs):
+        y = tanh_nonlinear(inputs)
+        return y
+
+
+class EntropyBit(layers.Layer):
+
+    def __init__(self, **kwargs):
+        super(EntropyBit, self).__init__(**kwargs)
+
+    def call(self, inputs, **kwargs):
+        p1 = inputs[0]
+        p2 = inputs[1]
+        entropy = keras.losses.categorical_crossentropy(p1, p2) / log_2
+        return entropy
+
+
+class GumbelSampler(layers.Layer):
+    def __init__(self, **kwargs):
+        super(GumbelSampler, self).__init__(**kwargs)
+
+    def call(self, inputs, **kwargs):
+        y = ste(inputs)
+        return y
+
+
+class BinaryOutGumbelSampler(layers.Layer):
+    def __init__(self, **kwargs):
+        super(BinaryOutGumbelSampler, self).__init__()
+
+    def call(self, inputs, **kwargs):
+        return sym2bin(inputs)
+
+
+class BaseConstellationShaping:
+    def __init__(self, M):
+        self.M = M
+
+
+class BitwiseShaping(BaseConstellationShaping):
+    def __init__(self, M, snr, EborEs):
+        super(BitwiseShaping, self).__init__(M)
+
+        self.EborEs = EborEs
+        self.snr_input = keras.Input(shape=1, name='snr_input')
+        self.gumbel_input = keras.Input(shape=self.M, name='gumbel_inputs')
+        self.noise = keras.Input(shape=2, name='noise')
+        self.prob_nodes = 16
+        self.prob_layers = 5
+        self.mapper_nodes = 64
+        self.mapper_layers = 5
+        self.decode_nodes = 64
+        self.decode_layers = 5
+        self.bit_per_sym = int(math.log2(self.M))
+        self.train_batch_size = 2000
+        self.epochs = 50
+        self.steps_per_epoch = 1000
+        self.learning_rate = 1e-3
+        if EborEs:
+            self.snr = snr + 10 * math.log10(self.bit_per_sym)
+        else:
+            self.snr = snr
+        self.noise_sigma = math.sqrt(0.5 / math.pow(10, self.snr / 10))
+
+    def _prob_shaping(self):
+        logits = layers.Dense(self.prob_nodes, activation='relu')(self.snr_input)
+        for _ in range(self.prob_layers - 1):
+            logits = layers.Dense(self.prob_nodes, activation='relu')(logits)
+        self.logits = layers.Dense(self.M, activation='linear', name='logits')(logits)
+        self.prob = layers.Softmax(name='prob_s')(self.logits)
+
+    def _symbols(self):
+        self.sym = layers.Softmax()(self.gumbel_input + self.logits)
+        self.binary_sym = BinaryOutGumbelSampler(name='binary_symbols')(self.sym)
+
+    def _cons_mapper(self):
+        e_temp = layers.Dense(self.mapper_nodes, activation='relu')(self.binary_sym)
+        for _ in range(self.mapper_layers - 1):
+            e_temp = layers.Dense(self.mapper_nodes, activation='relu')(e_temp)
+        self.tx = layers.Dense(2, activation='linear', name='tx_nonnormalized')(e_temp)
+        prob = tf.reshape(self.prob[0, :], shape=[-1, 1])
+        self.sym_prob = tf.matmul(self.sym, prob)
+        tx_energy = tf.reduce_sum(tf.multiply(tf.reduce_sum(tf.square(self.tx), axis=-1), self.sym_prob))
+        self.tx_norm = self.tx / tf.sqrt(tx_energy)
+
+    def _channel(self):
+        self.rx = layers.Add(name='awgn_channel')([self.tx_norm, self.noise])
+
+    def _decoder(self):
+        d_temp = layers.Dense(self.decode_nodes, activation='relu')(self.rx)
+        for _ in range(self.decode_layers - 1):
+            d_temp = layers.Dense(self.decode_nodes, activation='relu')(d_temp)
+
+        self.decode_out = layers.Dense(self.bit_per_sym, activation='sigmoid', name='decode_out')(d_temp)
+
+    def create_model(self):
+        self._prob_shaping()
+        self._symbols()
+        self._cons_mapper()
+        self._channel()
+        self._decoder()
+        bce = keras.losses.BinaryCrossentropy()(self.binary_sym, self.decode_out)
+        self.hard_dicision_bit = tf.math.rint(self.decode_out)
+        ber = keras.backend.mean(self.hard_dicision_bit != self.binary_sym)
+        self.model = keras.Model(inputs=[self.snr_input, self.gumbel_input, self.noise], outputs=self.decode_out)
+        self.model: keras.Model
+        self.model.add_loss(bce)
+        self.model.add_metric(ber, name='ber')
+        self.model.compile(optimizer=keras.optimizers.Adam(self.learning_rate))
+
+    def train(self):
+        snr_data = self.snr * np.ones([self.train_batch_size * self.steps_per_epoch, 1], dtype=np.float32)
+        gumbel_data = standard_gumbel(shape=[self.train_batch_size * self.steps_per_epoch, self.M])
+        noise = tf.random.normal(mean=0, stddev=self.noise_sigma,
+                                 shape=[self.train_batch_size * self.steps_per_epoch, 2])
+        self.model.fit({'snr_input': snr_data, 'gumbel_inputs': gumbel_data, 'noise': noise},
+                       {'decode_out': self.binary_sym}, batch_size=self.train_batch_size, epochs=self.epochs)
+
+
+if __name__ == '__main__':
+    comm.set_device(only_cpu=True)
+    bitwise_shaper = BitwiseShaping(M=16,snr=8,EborEs=True)
+    bitwise_shaper.create_model()
+    bitwise_shaper.train()
