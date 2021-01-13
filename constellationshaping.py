@@ -59,16 +59,16 @@ def ste(x):
     return y, grad
 
 
-@tf.custom_gradient
-def sym2bin(x):
-    M = int(x.shape[-1])
-    y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
-    y = tf.matmul(y, mapper_dict[M])
-
-    def grad(dy):
-        return dy * 1
-
-    return y, grad
+# @tf.custom_gradient
+# def sym2bin(x,matrix):
+#     M = int(x.shape[-1])
+#     y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
+#     y = tf.matmul(y, matrix)
+#
+#     def grad(dy):
+#         return (dy * 1,dy*1)
+#
+#     return y, grad
 
 
 @tf.custom_gradient
@@ -139,8 +139,15 @@ class BinaryOutGumbelSampler(layers.Layer):
     def __init__(self, **kwargs):
         super(BinaryOutGumbelSampler, self).__init__()
 
+    def build(self, input_shape):
+        M=int(input_shape[-1])
+        self.mapper = tf.Variable(initial_value=mapper_dict[M],trainable=False,name='sym2bin_mapper')
+
+
     def call(self, inputs, **kwargs):
-        return sym2bin(inputs)
+        y = ste(inputs)
+        y = tf.matmul(y,self.mapper)
+        return y
 
 
 class AddLossLayer(layers.Layer):
@@ -202,8 +209,10 @@ class BitwiseShaping(BaseConstellationShaping):
             e_temp = layers.Dense(self.mapper_nodes, activation='relu')(e_temp)
         self.tx = layers.Dense(2, activation='linear', name='tx_nonnormalized')(e_temp)
         prob = tf.reshape(self.prob[0, :], shape=[-1, 1])
+        self.sym=tf.one_hot(tf.argmax(self.sym,axis=-1),depth=self.M)
         self.sym_prob = tf.matmul(self.sym, prob)
-        tx_energy = tf.reduce_sum(tf.multiply(tf.reduce_sum(tf.square(self.tx), axis=-1), self.sym_prob))
+        tmp1=tf.reshape(tf.reduce_sum(tf.square(self.tx), axis=-1),shape=[-1,1])
+        tx_energy = tf.reduce_sum(tf.multiply(tmp1, self.sym_prob))
         self.tx_norm = self.tx / tf.sqrt(tx_energy)
 
     def _channel(self):
@@ -249,11 +258,16 @@ class BitwiseShaping(BaseConstellationShaping):
         # self.model.fit(x={'snr_input': snr_data, 'gumbel_inputs': gumbel_data, 'noise': noise},
         #                epochs=self.epochs, batch_size=self.train_batch_size)
 
+    def cons_point_generate(self):
+        pass
+
 
 if __name__ == '__main__':
     comm.set_device(only_cpu=True)
+    comm.redirect2log('log.log')
     bitwise_shaper = BitwiseShaping(M=16, snr=8, EborEs=True)
     bitwise_shaper.create_model()
+    bitwise_shaper.model.summary()
     keras.utils.plot_model(bitwise_shaper.model,show_shapes=True)
     bitwise_shaper.model.evaluate(bitwise_shaper.train_data_generator(), steps=10)
     bitwise_shaper.train()
