@@ -54,7 +54,7 @@ def ste(x):
     y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
 
     def grad(dy):
-        return 0
+        return dy*1
 
     return y, grad
 
@@ -66,7 +66,7 @@ def sym2bin(x):
     y = tf.matmul(y, mapper_dict[M])
 
     def grad(dy):
-        return dy * 0
+        return dy * 1
 
     return y, grad
 
@@ -143,6 +143,16 @@ class BinaryOutGumbelSampler(layers.Layer):
         return sym2bin(inputs)
 
 
+class AddLossLayer(layers.Layer):
+    def __init__(self, **kwargs):
+        super(AddLossLayer, self).__init__()
+
+    def call(self, inputs, **kwargs):
+        y_true = inputs[0]
+        y_pred = inputs[1]
+        return keras.losses.binary_crossentropy(y_true, y_pred)
+
+
 class BaseConstellationShaping:
     def __init__(self, M):
         self.M = M
@@ -152,10 +162,6 @@ class BitwiseShaping(BaseConstellationShaping):
     def __init__(self, M, snr, EborEs):
         super(BitwiseShaping, self).__init__(M)
 
-        self.EborEs = EborEs
-        self.snr_input = keras.Input(shape=1, name='snr_input')
-        self.gumbel_input = keras.Input(shape=self.M, name='gumbel_inputs')
-        self.noise = keras.Input(shape=2, name='noise')
         self.prob_nodes = 16
         self.prob_layers = 5
         self.mapper_nodes = 64
@@ -167,6 +173,12 @@ class BitwiseShaping(BaseConstellationShaping):
         self.epochs = 50
         self.steps_per_epoch = 1000
         self.learning_rate = 1e-3
+
+        self.EborEs = EborEs
+        self.snr_input = keras.Input(batch_shape=[self.train_batch_size, 1], name='snr_input')
+        self.gumbel_input = keras.Input(batch_shape=[self.train_batch_size, self.M], name='gumbel_inputs')
+        self.noise = keras.Input(batch_shape=[self.train_batch_size, 2], name='noise')
+
         if EborEs:
             self.snr = snr + 10 * math.log10(self.bit_per_sym)
         else:
@@ -210,7 +222,8 @@ class BitwiseShaping(BaseConstellationShaping):
         self._cons_mapper()
         self._channel()
         self._decoder()
-        bce = keras.losses.BinaryCrossentropy()(self.binary_sym, self.decode_out)
+        # bce = keras.losses.BinaryCrossentropy()(self.binary_sym, self.decode_out)
+        bce = AddLossLayer()([self.binary_sym,self.decode_out])
         self.hard_dicision_bit = tf.math.rint(self.decode_out)
         ber = keras.backend.mean(self.hard_dicision_bit != self.binary_sym)
         self.model = keras.Model(inputs=[self.snr_input, self.gumbel_input, self.noise], outputs=self.decode_out)
@@ -219,17 +232,37 @@ class BitwiseShaping(BaseConstellationShaping):
         self.model.add_metric(ber, name='ber')
         self.model.compile(optimizer=keras.optimizers.Adam(self.learning_rate))
 
+    def train_data_generator(self):
+        snr_data = self.snr * np.ones([self.train_batch_size, 1], dtype=np.float32)
+        while True:
+            gumbel_data = standard_gumbel(shape=[self.train_batch_size, self.M])
+            noise = tf.random.normal(mean=0, stddev=self.noise_sigma, shape=[self.train_batch_size, 2])
+            yield [snr_data, gumbel_data, noise]
+
     def train(self):
-        snr_data = self.snr * np.ones([self.train_batch_size * self.steps_per_epoch, 1], dtype=np.float32)
-        gumbel_data = standard_gumbel(shape=[self.train_batch_size * self.steps_per_epoch, self.M])
-        noise = tf.random.normal(mean=0, stddev=self.noise_sigma,
-                                 shape=[self.train_batch_size * self.steps_per_epoch, 2])
-        self.model.fit({'snr_input': snr_data, 'gumbel_inputs': gumbel_data, 'noise': noise},
-                       {'decode_out': self.binary_sym}, batch_size=self.train_batch_size, epochs=self.epochs)
+        # snr_data = self.snr * np.ones([self.train_batch_size * self.steps_per_epoch, 1], dtype=np.float32)
+        # gumbel_data = standard_gumbel(shape=[self.train_batch_size * self.steps_per_epoch, self.M])
+        # noise = tf.random.normal(mean=0, stddev=self.noise_sigma,
+        #                          shape=[self.train_batch_size * self.steps_per_epoch, 2])
+        # print(self.binary_sym)
+        self.model.fit(self.train_data_generator(),batch_size=self.train_batch_size, epochs=self.epochs,steps_per_epoch=self.steps_per_epoch)
+        # self.model.fit(x={'snr_input': snr_data, 'gumbel_inputs': gumbel_data, 'noise': noise},
+        #                epochs=self.epochs, batch_size=self.train_batch_size)
 
 
 if __name__ == '__main__':
     comm.set_device(only_cpu=True)
-    bitwise_shaper = BitwiseShaping(M=16,snr=8,EborEs=True)
+    bitwise_shaper = BitwiseShaping(M=16, snr=8, EborEs=True)
     bitwise_shaper.create_model()
+    keras.utils.plot_model(bitwise_shaper.model,show_shapes=True)
+    bitwise_shaper.model.evaluate(bitwise_shaper.train_data_generator(), steps=10)
     bitwise_shaper.train()
+
+    # debug
+    # 前向可以跑通
+    # snr_data = 10 * np.ones([100, 1], dtype=np.float32)
+    # gumbel_data = standard_gumbel(shape=[100, bitwise_shaper.M])
+    # noise = tf.random.normal(mean=0, stddev=bitwise_shaper.noise_sigma,
+    #                          shape=[100, 2])
+    # d_out = bitwise_shaper.model([snr_data,gumbel_data,noise])
+    # print(d_out)
