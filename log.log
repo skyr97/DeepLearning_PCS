@@ -2043,3 +2043,166 @@ tf.Tensor(
  [0. 0. 0. ... 1. 0. 0.]
  [0. 0. 0. ... 0. 1. 0.]
  [0. 0. 0. ... 0. 0. 1.]], shape=(64, 64), dtype=float32)
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -3.7370e-01 - mutual_info: -3.7741e-01 - ser: 0.1793 - ber: 0.0870
+
+Epoch 00001: mutual_info improved from -inf to -0.37741, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: 4.5594e-05 - mutual_info: 5.5587e-05 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00002: mutual_info improved from -0.37741 to 0.00006, saving model to ./model/test1/
+Epoch 3/10
+1000/1000 - 7s - loss: 2.4513e-05 - mutual_info: 3.4413e-05 - ser: 6.6667e-07 - ber: 3.3333e-07
+
+Epoch 00003: mutual_info did not improve from 0.00006
+Epoch 4/10
+1000/1000 - 7s - loss: 6.1527e-06 - mutual_info: 8.8636e-06 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00004: mutual_info did not improve from 0.00006
+Epoch 00004: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 8s - loss: -4.3141e-01 - mutual_info: -4.0993e-01 - ser: 0.2098 - ber: 0.0820
+
+Epoch 00001: mutual_info improved from -inf to -0.40993, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: 7.1174e-05 - mutual_info: 7.9438e-05 - ser: 6.6667e-07 - ber: 3.3333e-07
+
+Epoch 00002: mutual_info improved from -0.40993 to 0.00008, saving model to ./model/test1/
+Epoch 3/10
+1000/1000 - 7s - loss: 2.0687e-05 - mutual_info: 2.4656e-05 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00003: mutual_info did not improve from 0.00008
+Epoch 4/10
+1000/1000 - 7s - loss: 8.7094e-06 - mutual_info: 1.0834e-05 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00004: mutual_info did not improve from 0.00008
+Epoch 00004: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -2.4354e-01 - mutual_info: -1.8919e-01 - entropy: 0.8404 - ser: 0.1400 - ber: 0.0556
+
+Epoch 00001: mutual_info improved from -inf to -0.18919, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: 5.6540e-05 - mutual_info: 7.2054e-05 - entropy: 1.8782e-06 - ser: 6.6667e-07 - ber: 1.6667e-07
+
+Epoch 00002: mutual_info improved from -0.18919 to 0.00007, saving model to ./model/test1/
+Epoch 3/10
+1000/1000 - 7s - loss: 8.8492e-06 - mutual_info: 1.5455e-05 - entropy: 4.7048e-07 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00003: mutual_info did not improve from 0.00007
+Epoch 4/10
+1000/1000 - 7s - loss: 2.0628e-06 - mutual_info: 5.7902e-06 - entropy: 1.6590e-07 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00004: mutual_info did not improve from 0.00007
+Epoch 00004: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 8s - loss: -1.3501e-01 - mutual_info: -1.9477e-01 - entropy: 0.8383 - ser: 0.1445 - ber: 0.5292
+
+Epoch 00001: mutual_info improved from -inf to -0.19477, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: 4.8210e-05 - mutual_info: 6.9552e-05 - entropy: 1.1434e-06 - ser: 0.0000e+00 - ber: 0.5498
+
+Epoch 00002: mutual_info improved from -0.19477 to 0.00007, saving model to ./model/test1/
+Epoch 3/10
+1000/1000 - 7s - loss: 2.9669e-06 - mutual_info: 4.2804e-06 - entropy: 1.3920e-07 - ser: 0.0000e+00 - ber: 0.5527
+
+Epoch 00003: mutual_info did not improve from 0.00007
+Epoch 4/10
+1000/1000 - 7s - loss: 6.4071e-07 - mutual_info: 9.2435e-07 - entropy: 5.4756e-08 - ser: 0.0000e+00 - ber: 0.5549
+
+Epoch 00004: mutual_info did not improve from 0.00007
+Epoch 00004: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: 0.6509 - mutual_info: 0.8347 - entropy: -4.0775e-01 - ser: 0.0787 - ber: 0.0379
+
+Epoch 00001: mutual_info improved from -inf to 0.83465, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: 1.2101e-05 - mutual_info: 1.0917e-05 - entropy: -1.9926e-06 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00002: mutual_info did not improve from 0.83465
+Epoch 3/10
+1000/1000 - 7s - loss: 7.2199e-07 - mutual_info: 5.8109e-07 - entropy: -8.3304e-08 - ser: 0.0000e+00 - ber: 0.0000e+00
+
+Epoch 00003: mutual_info did not improve from 0.83465
+Epoch 00003: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -7.6545e-01 - mutual_info: -1.7572e+00 - entropy: 3.9348 - ser: 0.5836 - ber: 0.2284
+
+Epoch 00001: mutual_info improved from -inf to -1.75720, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: -1.2526e+00 - mutual_info: -2.2395e+00 - entropy: 3.5557 - ser: 0.3525 - ber: 0.1283
+
+Epoch 00002: mutual_info did not improve from -1.75720
+Epoch 3/10
+1000/1000 - 7s - loss: -1.3003e+00 - mutual_info: -2.2537e+00 - entropy: 3.3891 - ser: 0.3028 - ber: 0.1091
+
+Epoch 00003: mutual_info did not improve from -1.75720
+Epoch 00003: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -1.5472e+00 - mutual_info: -1.7262e+00 - entropy: 3.9914 - ser: 0.6256 - ber: 0.2159
+
+Epoch 00001: mutual_info improved from -inf to -1.72618, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: -1.7941e+00 - mutual_info: -2.2185e+00 - entropy: 3.8778 - ser: 0.4554 - ber: 0.1431
+
+Epoch 00002: mutual_info did not improve from -1.72618
+Epoch 3/10
+1000/1000 - 7s - loss: -1.8253e+00 - mutual_info: -2.2750e+00 - entropy: 3.8113 - ser: 0.4098 - ber: 0.1233
+
+Epoch 00003: mutual_info did not improve from -1.72618
+Epoch 00003: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 8s - loss: -1.5857e+00 - mutual_info: -1.7566e+00 - entropy: 3.9928 - ser: 0.6289 - ber: 0.2120
+
+Epoch 00001: mutual_info improved from -inf to -1.75661, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: -1.7931e+00 - mutual_info: -2.2137e+00 - entropy: 3.9006 - ser: 0.4638 - ber: 0.1487
+
+Epoch 00002: mutual_info did not improve from -1.75661
+Epoch 3/10
+1000/1000 - 7s - loss: -1.8165e+00 - mutual_info: -2.2681e+00 - entropy: 3.8309 - ser: 0.4243 - ber: 0.1311
+
+Epoch 00003: mutual_info did not improve from -1.75661
+Epoch 00003: early stopping
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -1.5684e+00 - mutual_info: -1.7507e+00 - entropy: 3.9928 - ser: 0.6120 - ber: 0.2181 - ser_from_bits: 0.0018
+
+Epoch 00001: mutual_info improved from -inf to -1.75075, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: -1.7816e+00 - mutual_info: -2.2047e+00 - entropy: 3.9168 - ser: 0.4747 - ber: 0.1592 - ser_from_bits: 0.0038
+
+Epoch 00002: mutual_info did not improve from -1.75075
+Epoch 3/10
+1000/1000 - 7s - loss: -1.8067e+00 - mutual_info: -2.2521e+00 - entropy: 3.8639 - ser: 0.4411 - ber: 0.1418 - ser_from_bits: 0.0018
+
+Epoch 00003: mutual_info did not improve from -1.75075
+Epoch 00003: early stopping
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+tf version: 2.5.0-dev20210107
+Epoch 1/10
+1000/1000 - 9s - loss: -1.5862e+00 - mutual_info: -1.7658e+00 - entropy: 3.9911 - ser: 0.6126 - ber_from_sym: 0.2225 - ber: 0.2171 - ser_from_bits: 0.0014
+
+Epoch 00001: mutual_info improved from -inf to -1.76580, saving model to ./model/test1/
+Epoch 2/10
+1000/1000 - 7s - loss: -1.7819e+00 - mutual_info: -2.2320e+00 - entropy: 3.8960 - ser: 0.4639 - ber_from_sym: 0.1653 - ber: 0.1643 - ser_from_bits: 7.6067e-04
+
+Epoch 00002: mutual_info did not improve from -1.76580
+Epoch 3/10
+1000/1000 - 7s - loss: -1.8218e+00 - mutual_info: -2.2606e+00 - entropy: 3.8402 - ser: 0.4282 - ber_from_sym: 0.1305 - ber: 0.1289 - ser_from_bits: 8.0000e-06
+
+Epoch 00003: mutual_info did not improve from -1.76580
+Epoch 00003: early stopping

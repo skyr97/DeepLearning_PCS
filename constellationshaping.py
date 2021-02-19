@@ -54,7 +54,7 @@ def ste(x):
     y = tf.one_hot(tf.argmax(x, axis=-1), depth=M)
 
     def grad(dy):
-        return dy*1
+        return dy*0
 
     return y, grad
 
@@ -238,8 +238,9 @@ class SymbolwiseShaping(BaseConstellationShaping):
         self.decode_out_softmax=layers.Dense(self.M,activation='softmax')(d_temp)
         self.decode_hard_sym = tf.argmax(self.decode_out_softmax,axis=-1)
         self.ser = keras.backend.mean(self.decode_hard_sym!=self.sym_dec)
+        decode_onehot = tf.one_hot(self.decode_hard_sym,self.M)
         sym2bin = tf.convert_to_tensor(mapper_dict[self.M])
-        hard_bits = tf.matmul(self.decode_hard_sym,sym2bin)
+        hard_bits = tf.matmul(decode_onehot,sym2bin)
         self.ber_from_sym = keras.backend.mean(hard_bits!=self.binary_sym)        
 
     def _decode_sigmoid(self):
@@ -264,9 +265,11 @@ class SymbolwiseShaping(BaseConstellationShaping):
         bce=keras.losses.binary_crossentropy(y_true=self.binary_sym,y_pred=self.decode_out_sigmoid)
         entropy_log = keras.losses.categorical_crossentropy(self.prob,self.prob)
         mutual_info_bit = tf.divide(cce-entropy_log,log_2)
+        entropy_bits=tf.divide(entropy_log,log_2)
         mix_loss = self.cce_weight*cce+self.bce_weight*bce-entropy_log
         self.model_whole.add_loss(mix_loss)
         self.model_whole.add_metric(mutual_info_bit,name="mutual_info")
+        self.model_whole.add_metric(entropy_bits,name="entropy")
         self.model_whole.add_metric(self.ser,name="ser")
         self.model_whole.add_metric(self.ber_from_sym,name="ber_from_sym")
         self.model_whole.add_metric(self.ber,name="ber")
@@ -285,7 +288,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
             keras.callbacks.ModelCheckpoint(filepath="./model/test1/",monitor="mutual_info",verbose=1,save_best_only=True,mode='max'),
             keras.callbacks.EarlyStopping(monitor="mutual_info",patience=2,verbose=1,mode='max')
         ]
-        self.model_whole.fit(self.infinity_data_generator,epochs=self.epochs,steps_per_epoch=self.steps_per_epoch,callbacks=callbacks,verbose=2)
+        self.model_whole.fit(self.infinity_data_generator(),epochs=self.epochs,steps_per_epoch=self.steps_per_epoch,callbacks=callbacks,verbose=2)
     
     def evaluate(self):
         pass
@@ -415,7 +418,7 @@ if __name__ == '__main__':
     comm.set_device(gpu_id=1,gpu_mem=4096)
     comm.redirect2log('log.log')
     print("tf version:",tf.__version__)
-    symwise_shaper = SymbolwiseShaping(M=16,snr=8,epochs=10,cce_weight=0.5,bce_weight=1.0,is_ebn0=False)
+    symwise_shaper = SymbolwiseShaping(M=16,snr=6,epochs=10,cce_weight=0.5,bce_weight=1.0,is_ebn0=False)
     symwise_shaper.create_model()
     symwise_shaper.train()
     # bitwise_shaper = BitwiseShaping(M=64, snr=14, EborEs=True)
