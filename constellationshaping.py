@@ -312,9 +312,10 @@ class SymbolwiseShaping(BaseConstellationShaping):
             yield [snr_data, gumbel_data, noise]
 
     def train(self):
+        model_path = "./model/modOrder{M}/snr{snr}".format(M=self.M,snr=self.esn0_snr)
         callbacks = [
             keras.callbacks.ModelCheckpoint(
-                filepath="./model/test1/", monitor="mutual_info", verbose=1, save_best_only=True, mode='max'),
+                filepath=model_path, monitor="mutual_info", verbose=1, save_best_only=True, mode='max'),
             keras.callbacks.EarlyStopping(
                 monitor="mutual_info", patience=2, verbose=1, mode='max')
         ]
@@ -359,8 +360,21 @@ class SymbolwiseShaping(BaseConstellationShaping):
         image_path = "./images/modOrder{M}".format(M=self.M)
         if not os.path.exists(image_path):
             os.makedirs(image_path)
+        markers=[]
+        base_sym_bin=base_sym_bin.astype(np.int64)
+        for bin in base_sym_bin:
+            s=""
+            for b in bin:
+                s+=str(b)
+            s="$"+s+"$"
+            markers.append(s)
+        
         plt.scatter(base_tx[:, 0], base_tx[:, 1], s=prob_s*500)
+        
+        for i in range(len(base_tx)):
+            plt.scatter(base_tx[i,0],base_tx[i,1],s=prob_s[i]*5000,marker=markers[i],c='r')
         plt.savefig(os.path.join(image_path, "snr{snr}_order{M}.png".format(snr=self.esn0_snr,M=self.M)))
+        plt.close()
         savemat(os.path.join(image_path,"snr{snr}_order{M}.mat".format(snr=self.esn0_snr,M=self.M)),{"prob":prob_s,"cons":base_tx})
 
 
@@ -502,32 +516,42 @@ class BitwiseShaping(BaseConstellationShaping):
 
 if __name__ == '__main__':
     comm.set_device(gpu_id=1, gpu_mem=4096)
-    comm.redirect2log('log.log')
-    print("tf version:", tf.__version__)
+    
+    print("\n\ntf version:", tf.__version__)
     M_dic = {16, 64, 256}
-
+    print("\n\n")
     M = int(input("modOrder(16,64,256):"))
     start_snr = float(input("start snr:"))
     step_snr = float(input("step snr:"))
     end_snr = float(input("end snr:"))
     epochs = int(input("epochs:"))
-    cce_weight = float("cce_weight:")
-    bce_weight = float("bce_weight:")
+    cce_weight = float(input("cce_weight:"))
+    bce_weight = float(input("bce_weight:"))
     matfilename = input(".mat file's name:")
+    
+    comm.redirect2log('log.log')
+    
     if matfilename[-4:] != ".mat":
         matfilename += ".mat"
+    if os.path.exists(matfilename):
+        print("deleted old .mat file")
+        os.remove(matfilename)
 
     if M not in M_dic:
         raise ValueError("the modulation order should be 16, 64 or 256")
+    st=datetime.datetime.now()
     snr = start_snr
     while snr <= end_snr:
         symwise_shaper = SymbolwiseShaping(
             M=M, snr=snr, epochs=epochs, cce_weight=cce_weight, bce_weight=bce_weight, is_ebn0=False)
         symwise_shaper.create_model()
         symwise_shaper.train()
-        symwise_shaper.evaluate()
+        symwise_shaper.evaluate(matfilename=matfilename)
         symwise_shaper.cons_prob_plot()
         snr += step_snr
+    et=datetime.datetime.now()
+    print("run time:",et-st)
+    
 
     # symwise_shaper = SymbolwiseShaping(M=16,snr=6,epochs=10,cce_weight=0.5,bce_weight=1.0,is_ebn0=False)
     # symwise_shaper.create_model()
