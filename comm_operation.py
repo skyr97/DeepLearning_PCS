@@ -7,16 +7,26 @@ import tensorflow as tf
 def set_device(gpu_id=0, gpu_mem=None, only_cpu=False, growth=False):
     gpus = tf.config.experimental.list_physical_devices('GPU')
     cpus = tf.config.experimental.list_physical_devices('CPU')
+    if not gpus:
+        return
     if not only_cpu:
-        tf.config.experimental.set_visible_devices(devices=gpus[gpu_id], device_type='GPU')
+        if gpu_id >= len(gpus):
+            print("only {gpu_len} gpus on this machine, gpu_id={gpu_id} is illegal, instead, gpu:{last_gpu} will be configured".format(
+                gpu_len=len(gpus), gpu_id=gpu_id, last_gpu=len(gpus)-1))
+            gpu_id = len(gpus)-1
+
+        tf.config.experimental.set_visible_devices(
+            devices=gpus[gpu_id], device_type='GPU')
         if not growth:
             tf.config.experimental.set_virtual_device_configuration(gpus[gpu_id], [
                 tf.config.experimental.VirtualDeviceConfiguration(memory_limit=gpu_mem)])
         else:
             tf.config.experimental.set_memory_growth(gpus[gpu_id], True)
     else:
-        tf.config.experimental.set_visible_devices(devices=cpus, device_type='CPU')
-        tf.config.experimental.set_visible_devices(devices=[], device_type='GPU')
+        tf.config.experimental.set_visible_devices(
+            devices=cpus, device_type='CPU')
+        tf.config.experimental.set_visible_devices(
+            devices=[], device_type='GPU')
 
 
 def input_bool(s: str):
