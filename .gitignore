@@ -1,8 +1,8 @@
 .vscode
 *.pyc
-*.png
+# *.png
 .idea
-*.mat
+# *.mat
 *.asv
 model
-log.log
+# log.log
