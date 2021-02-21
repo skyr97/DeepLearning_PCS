@@ -1,0 +1,639 @@
+M=16
+cce_weight=0.5
+bce_weight=1.0
+
+
+M16cce0.5bce1.0.mat has existed, it will be copy tocopy_copy_M16cce0.5bce1.0.mat, and then M16cce0.5bce1.0.mat will be recreated
+
+
+
+
+snr=4.00
+Epoch 1/50
+1000/1000 - 9s - loss: -1.4216e+00 - mutual_info: -1.4544e+00 - entropy: 3.9860 - ser: 0.6726 - ber_from_sym: 0.2602 - ber: 0.2481 - ser_from_bits: 0.9988
+
+Epoch 00001: mutual_info improved from -inf to -1.45438, saving model to ./model/modOrder16/snr4.00
+Epoch 2/50
+1000/1000 - 7s - loss: -1.5745e+00 - mutual_info: -1.7614e+00 - entropy: 3.9024 - ser: 0.5793 - ber_from_sym: 0.1924 - ber: 0.1897 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -1.45438
+Epoch 3/50
+1000/1000 - 7s - loss: -1.5866e+00 - mutual_info: -1.7871e+00 - entropy: 3.8561 - ser: 0.5495 - ber_from_sym: 0.1708 - ber: 0.1694 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.45438
+Epoch 4/50
+1000/1000 - 7s - loss: -1.5887e+00 - mutual_info: -1.7910e+00 - entropy: 3.8499 - ser: 0.5467 - ber_from_sym: 0.1685 - ber: 0.1674 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.45438
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.5879e+00 - mutual_info: -1.7900e+00 - entropy: 3.8453 - ser: 0.5464 - ber_from_sym: 0.1687 - ber: 0.1671 - ser_from_bits: 1.0000
+
+
+snr=4.40
+Epoch 1/50
+1000/1000 - 9s - loss: -1.4444e+00 - mutual_info: -1.5012e+00 - entropy: 3.9866 - ser: 0.6654 - ber_from_sym: 0.2519 - ber: 0.2332 - ser_from_bits: 0.9945
+
+Epoch 00001: mutual_info improved from -inf to -1.50122, saving model to ./model/modOrder16/snr4.40
+Epoch 2/50
+1000/1000 - 7s - loss: -1.6146e+00 - mutual_info: -1.8588e+00 - entropy: 3.8887 - ser: 0.5429 - ber_from_sym: 0.1793 - ber: 0.1747 - ser_from_bits: 0.9998
+
+Epoch 00002: mutual_info did not improve from -1.50122
+Epoch 3/50
+1000/1000 - 7s - loss: -1.6277e+00 - mutual_info: -1.8826e+00 - entropy: 3.8465 - ser: 0.5234 - ber_from_sym: 0.1648 - ber: 0.1626 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.50122
+Epoch 4/50
+1000/1000 - 7s - loss: -1.6284e+00 - mutual_info: -1.8836e+00 - entropy: 3.8365 - ser: 0.5212 - ber_from_sym: 0.1625 - ber: 0.1608 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.50122
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -1.6301e+00 - mutual_info: -1.8885e+00 - entropy: 3.8334 - ser: 0.5198 - ber_from_sym: 0.1625 - ber: 0.1604 - ser_from_bits: 1.0000
+
+
+snr=4.80
+Epoch 1/50
+1000/1000 - 8s - loss: -1.4877e+00 - mutual_info: -1.5849e+00 - entropy: 3.9801 - ser: 0.6350 - ber_from_sym: 0.2339 - ber: 0.2239 - ser_from_bits: 0.9982
+
+Epoch 00001: mutual_info improved from -inf to -1.58485, saving model to ./model/modOrder16/snr4.80
+Epoch 2/50
+1000/1000 - 7s - loss: -1.6598e+00 - mutual_info: -1.9543e+00 - entropy: 3.8863 - ser: 0.5327 - ber_from_sym: 0.1773 - ber: 0.1699 - ser_from_bits: 0.9997
+
+Epoch 00002: mutual_info did not improve from -1.58485
+Epoch 3/50
+1000/1000 - 7s - loss: -1.6673e+00 - mutual_info: -1.9770e+00 - entropy: 3.8321 - ser: 0.4975 - ber_from_sym: 0.1611 - ber: 0.1568 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.58485
+Epoch 4/50
+1000/1000 - 7s - loss: -1.6699e+00 - mutual_info: -1.9822e+00 - entropy: 3.8174 - ser: 0.4899 - ber_from_sym: 0.1560 - ber: 0.1529 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.58485
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.6692e+00 - mutual_info: -1.9826e+00 - entropy: 3.8066 - ser: 0.4880 - ber_from_sym: 0.1557 - ber: 0.1512 - ser_from_bits: 1.0000
+
+
+snr=5.20
+Epoch 1/50
+1000/1000 - 8s - loss: -1.5135e+00 - mutual_info: -1.6548e+00 - entropy: 3.9798 - ser: 0.6188 - ber_from_sym: 0.2369 - ber: 0.2252 - ser_from_bits: 0.9983
+
+Epoch 00001: mutual_info improved from -inf to -1.65478, saving model to ./model/modOrder16/snr5.20
+Epoch 2/50
+1000/1000 - 7s - loss: -1.7044e+00 - mutual_info: -2.0447e+00 - entropy: 3.8823 - ser: 0.5102 - ber_from_sym: 0.1724 - ber: 0.1684 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -1.65478
+Epoch 3/50
+1000/1000 - 7s - loss: -1.7174e+00 - mutual_info: -2.0594e+00 - entropy: 3.8618 - ser: 0.4974 - ber_from_sym: 0.1619 - ber: 0.1601 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.65478
+Epoch 4/50
+1000/1000 - 7s - loss: -1.7189e+00 - mutual_info: -2.0599e+00 - entropy: 3.8499 - ser: 0.4944 - ber_from_sym: 0.1586 - ber: 0.1563 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.65478
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.7195e+00 - mutual_info: -2.0624e+00 - entropy: 3.8330 - ser: 0.4906 - ber_from_sym: 0.1550 - ber: 0.1524 - ser_from_bits: 1.0000
+
+
+snr=5.60
+Epoch 1/50
+1000/1000 - 8s - loss: -1.5906e+00 - mutual_info: -1.7812e+00 - entropy: 3.9288 - ser: 0.5597 - ber_from_sym: 0.2016 - ber: 0.1941 - ser_from_bits: 0.9978
+
+Epoch 00001: mutual_info improved from -inf to -1.78122, saving model to ./model/modOrder16/snr5.60
+Epoch 2/50
+1000/1000 - 7s - loss: -1.7769e+00 - mutual_info: -2.1647e+00 - entropy: 3.8489 - ser: 0.4556 - ber_from_sym: 0.1391 - ber: 0.1378 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -1.78122
+Epoch 3/50
+1000/1000 - 7s - loss: -1.7827e+00 - mutual_info: -2.1714e+00 - entropy: 3.8410 - ser: 0.4476 - ber_from_sym: 0.1337 - ber: 0.1328 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.78122
+Epoch 4/50
+1000/1000 - 7s - loss: -1.7876e+00 - mutual_info: -2.1746e+00 - entropy: 3.8390 - ser: 0.4448 - ber_from_sym: 0.1310 - ber: 0.1303 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.78122
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -1.7899e+00 - mutual_info: -2.1764e+00 - entropy: 3.8383 - ser: 0.4448 - ber_from_sym: 0.1302 - ber: 0.1293 - ser_from_bits: 1.0000
+
+
+snr=6.00
+Epoch 1/50
+1000/1000 - 8s - loss: -1.5890e+00 - mutual_info: -1.7691e+00 - entropy: 3.9809 - ser: 0.5996 - ber_from_sym: 0.2130 - ber: 0.2062 - ser_from_bits: 0.9981
+
+Epoch 00001: mutual_info improved from -inf to -1.76910, saving model to ./model/modOrder16/snr6.00
+Epoch 2/50
+1000/1000 - 7s - loss: -1.7952e+00 - mutual_info: -2.2249e+00 - entropy: 3.8861 - ser: 0.4505 - ber_from_sym: 0.1481 - ber: 0.1459 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -1.76910
+Epoch 3/50
+1000/1000 - 7s - loss: -1.8168e+00 - mutual_info: -2.2607e+00 - entropy: 3.8432 - ser: 0.4288 - ber_from_sym: 0.1324 - ber: 0.1304 - ser_from_bits: 0.9999
+
+Epoch 00003: mutual_info did not improve from -1.76910
+Epoch 4/50
+1000/1000 - 7s - loss: -1.8184e+00 - mutual_info: -2.2643e+00 - entropy: 3.8365 - ser: 0.4276 - ber_from_sym: 0.1305 - ber: 0.1289 - ser_from_bits: 0.9997
+
+Epoch 00004: mutual_info did not improve from -1.76910
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.8169e+00 - mutual_info: -2.2648e+00 - entropy: 3.8305 - ser: 0.4261 - ber_from_sym: 0.1301 - ber: 0.1286 - ser_from_bits: 0.9996
+
+
+snr=6.40
+Epoch 1/50
+1000/1000 - 8s - loss: -1.6241e+00 - mutual_info: -1.8107e+00 - entropy: 3.9854 - ser: 0.6005 - ber_from_sym: 0.2084 - ber: 0.1990 - ser_from_bits: 0.9987
+
+Epoch 00001: mutual_info improved from -inf to -1.81074, saving model to ./model/modOrder16/snr6.40
+Epoch 2/50
+1000/1000 - 7s - loss: -1.8833e+00 - mutual_info: -2.3370e+00 - entropy: 3.8847 - ser: 0.4198 - ber_from_sym: 0.1221 - ber: 0.1204 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -1.81074
+Epoch 3/50
+1000/1000 - 7s - loss: -1.8997e+00 - mutual_info: -2.3710e+00 - entropy: 3.8608 - ser: 0.3978 - ber_from_sym: 0.1124 - ber: 0.1122 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.81074
+Epoch 4/50
+1000/1000 - 7s - loss: -1.8986e+00 - mutual_info: -2.3697e+00 - entropy: 3.8561 - ser: 0.3972 - ber_from_sym: 0.1121 - ber: 0.1119 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.81074
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -1.8982e+00 - mutual_info: -2.3695e+00 - entropy: 3.8542 - ser: 0.3966 - ber_from_sym: 0.1118 - ber: 0.1117 - ser_from_bits: 1.0000
+
+
+snr=6.80
+Epoch 1/50
+1000/1000 - 8s - loss: -1.6589e+00 - mutual_info: -1.8957e+00 - entropy: 3.9880 - ser: 0.5644 - ber_from_sym: 0.1908 - ber: 0.1930 - ser_from_bits: 0.9990
+
+Epoch 00001: mutual_info improved from -inf to -1.89571, saving model to ./model/modOrder16/snr6.80
+Epoch 2/50
+1000/1000 - 7s - loss: -1.9155e+00 - mutual_info: -2.4249e+00 - entropy: 3.8882 - ser: 0.4019 - ber_from_sym: 0.1206 - ber: 0.1195 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -1.89571
+Epoch 3/50
+1000/1000 - 7s - loss: -1.9451e+00 - mutual_info: -2.4751e+00 - entropy: 3.8395 - ser: 0.3660 - ber_from_sym: 0.1047 - ber: 0.1041 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.89571
+Epoch 4/50
+1000/1000 - 7s - loss: -1.9473e+00 - mutual_info: -2.4782e+00 - entropy: 3.8375 - ser: 0.3643 - ber_from_sym: 0.1039 - ber: 0.1034 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.89571
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.9462e+00 - mutual_info: -2.4772e+00 - entropy: 3.8334 - ser: 0.3647 - ber_from_sym: 0.1036 - ber: 0.1032 - ser_from_bits: 1.0000
+
+
+snr=7.20
+Epoch 1/50
+1000/1000 - 8s - loss: -1.6764e+00 - mutual_info: -1.9729e+00 - entropy: 3.9811 - ser: 0.5408 - ber_from_sym: 0.2031 - ber: 0.1960 - ser_from_bits: 0.9989
+
+Epoch 00001: mutual_info improved from -inf to -1.97293, saving model to ./model/modOrder16/snr7.20
+Epoch 2/50
+1000/1000 - 7s - loss: -1.9504e+00 - mutual_info: -2.5427e+00 - entropy: 3.8808 - ser: 0.3597 - ber_from_sym: 0.1213 - ber: 0.1210 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -1.97293
+Epoch 3/50
+1000/1000 - 7s - loss: -1.9731e+00 - mutual_info: -2.5706e+00 - entropy: 3.8382 - ser: 0.3402 - ber_from_sym: 0.1074 - ber: 0.1061 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -1.97293
+Epoch 4/50
+1000/1000 - 7s - loss: -1.9868e+00 - mutual_info: -2.5757e+00 - entropy: 3.8293 - ser: 0.3386 - ber_from_sym: 0.1002 - ber: 0.0989 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -1.97293
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -1.9906e+00 - mutual_info: -2.5761e+00 - entropy: 3.8263 - ser: 0.3372 - ber_from_sym: 0.0980 - ber: 0.0969 - ser_from_bits: 1.0000
+
+
+snr=7.60
+Epoch 1/50
+1000/1000 - 8s - loss: -1.7225e+00 - mutual_info: -2.0724e+00 - entropy: 3.9685 - ser: 0.4993 - ber_from_sym: 0.1813 - ber: 0.1763 - ser_from_bits: 0.9989
+
+Epoch 00001: mutual_info improved from -inf to -2.07244, saving model to ./model/modOrder16/snr7.60
+Epoch 2/50
+1000/1000 - 7s - loss: -2.0365e+00 - mutual_info: -2.6556e+00 - entropy: 3.8684 - ser: 0.3280 - ber_from_sym: 0.0949 - ber: 0.0941 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.07244
+Epoch 3/50
+1000/1000 - 7s - loss: -2.0494e+00 - mutual_info: -2.6760e+00 - entropy: 3.8484 - ser: 0.3132 - ber_from_sym: 0.0890 - ber: 0.0886 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.07244
+Epoch 4/50
+1000/1000 - 7s - loss: -2.0538e+00 - mutual_info: -2.6852e+00 - entropy: 3.8384 - ser: 0.3070 - ber_from_sym: 0.0867 - ber: 0.0864 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.07244
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.0561e+00 - mutual_info: -2.6886e+00 - entropy: 3.8404 - ser: 0.3066 - ber_from_sym: 0.0864 - ber: 0.0863 - ser_from_bits: 1.0000
+
+
+snr=8.00
+Epoch 1/50
+1000/1000 - 8s - loss: -1.7408e+00 - mutual_info: -2.0872e+00 - entropy: 3.9887 - ser: 0.5336 - ber_from_sym: 0.1830 - ber: 0.1834 - ser_from_bits: 0.9996
+
+Epoch 00001: mutual_info improved from -inf to -2.08720, saving model to ./model/modOrder16/snr8.00
+Epoch 2/50
+1000/1000 - 7s - loss: -2.0617e+00 - mutual_info: -2.7282e+00 - entropy: 3.8782 - ser: 0.3153 - ber_from_sym: 0.0974 - ber: 0.0989 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.08720
+Epoch 3/50
+1000/1000 - 7s - loss: -2.0901e+00 - mutual_info: -2.7706e+00 - entropy: 3.8461 - ser: 0.2919 - ber_from_sym: 0.0853 - ber: 0.0849 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.08720
+Epoch 4/50
+1000/1000 - 7s - loss: -2.0963e+00 - mutual_info: -2.7782e+00 - entropy: 3.8431 - ser: 0.2877 - ber_from_sym: 0.0832 - ber: 0.0826 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.08720
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.0989e+00 - mutual_info: -2.7817e+00 - entropy: 3.8434 - ser: 0.2864 - ber_from_sym: 0.0829 - ber: 0.0822 - ser_from_bits: 1.0000
+
+
+snr=8.40
+Epoch 1/50
+1000/1000 - 8s - loss: -1.7767e+00 - mutual_info: -2.2357e+00 - entropy: 3.9508 - ser: 0.4328 - ber_from_sym: 0.1768 - ber: 0.1802 - ser_from_bits: 0.9991
+
+Epoch 00001: mutual_info improved from -inf to -2.23569, saving model to ./model/modOrder16/snr8.40
+Epoch 2/50
+1000/1000 - 7s - loss: -2.1013e+00 - mutual_info: -2.8708e+00 - entropy: 3.8595 - ser: 0.2619 - ber_from_sym: 0.0965 - ber: 0.0966 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.23569
+Epoch 3/50
+1000/1000 - 7s - loss: -2.1072e+00 - mutual_info: -2.8791e+00 - entropy: 3.8453 - ser: 0.2537 - ber_from_sym: 0.0939 - ber: 0.0928 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.23569
+Epoch 4/50
+1000/1000 - 7s - loss: -2.1088e+00 - mutual_info: -2.8818e+00 - entropy: 3.8419 - ser: 0.2521 - ber_from_sym: 0.0935 - ber: 0.0922 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.23569
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.1104e+00 - mutual_info: -2.8852e+00 - entropy: 3.8408 - ser: 0.2508 - ber_from_sym: 0.0935 - ber: 0.0918 - ser_from_bits: 1.0000
+
+
+snr=8.80
+Epoch 1/50
+1000/1000 - 8s - loss: -1.8749e+00 - mutual_info: -2.3455e+00 - entropy: 3.9404 - ser: 0.3984 - ber_from_sym: 0.1459 - ber: 0.1438 - ser_from_bits: 0.9977
+
+Epoch 00001: mutual_info improved from -inf to -2.34551, saving model to ./model/modOrder16/snr8.80
+Epoch 2/50
+1000/1000 - 7s - loss: -2.1826e+00 - mutual_info: -2.9655e+00 - entropy: 3.8611 - ser: 0.2378 - ber_from_sym: 0.0751 - ber: 0.0756 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.34551
+Epoch 3/50
+1000/1000 - 7s - loss: -2.1961e+00 - mutual_info: -2.9807e+00 - entropy: 3.8452 - ser: 0.2274 - ber_from_sym: 0.0691 - ber: 0.0688 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.34551
+Epoch 4/50
+1000/1000 - 7s - loss: -2.1982e+00 - mutual_info: -2.9829e+00 - entropy: 3.8419 - ser: 0.2255 - ber_from_sym: 0.0681 - ber: 0.0677 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.34551
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.1990e+00 - mutual_info: -2.9865e+00 - entropy: 3.8426 - ser: 0.2252 - ber_from_sym: 0.0686 - ber: 0.0680 - ser_from_bits: 1.0000
+
+
+snr=9.20
+Epoch 1/50
+1000/1000 - 8s - loss: -1.8562e+00 - mutual_info: -2.3549e+00 - entropy: 3.9645 - ser: 0.4118 - ber_from_sym: 0.1624 - ber: 0.1625 - ser_from_bits: 0.9987
+
+Epoch 00001: mutual_info improved from -inf to -2.35485, saving model to ./model/modOrder16/snr9.20
+Epoch 2/50
+1000/1000 - 7s - loss: -2.2268e+00 - mutual_info: -3.0466e+00 - entropy: 3.8912 - ser: 0.2242 - ber_from_sym: 0.0711 - ber: 0.0716 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -2.35485
+Epoch 3/50
+1000/1000 - 7s - loss: -2.2363e+00 - mutual_info: -3.0602e+00 - entropy: 3.8717 - ser: 0.2147 - ber_from_sym: 0.0672 - ber: 0.0670 - ser_from_bits: 0.9998
+
+Epoch 00003: mutual_info did not improve from -2.35485
+Epoch 4/50
+1000/1000 - 7s - loss: -2.2409e+00 - mutual_info: -3.0682e+00 - entropy: 3.8656 - ser: 0.2100 - ber_from_sym: 0.0656 - ber: 0.0652 - ser_from_bits: 0.9994
+
+Epoch 00004: mutual_info did not improve from -2.35485
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.2398e+00 - mutual_info: -3.0661e+00 - entropy: 3.8593 - ser: 0.2085 - ber_from_sym: 0.0649 - ber: 0.0645 - ser_from_bits: 0.9994
+
+
+snr=9.60
+Epoch 1/50
+1000/1000 - 8s - loss: -1.8914e+00 - mutual_info: -2.4286e+00 - entropy: 3.9709 - ser: 0.3807 - ber_from_sym: 0.1432 - ber: 0.1517 - ser_from_bits: 0.9995
+
+Epoch 00001: mutual_info improved from -inf to -2.42858, saving model to ./model/modOrder16/snr9.60
+Epoch 2/50
+1000/1000 - 7s - loss: -2.2691e+00 - mutual_info: -3.1463e+00 - entropy: 3.8914 - ser: 0.1946 - ber_from_sym: 0.0672 - ber: 0.0680 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.42858
+Epoch 3/50
+1000/1000 - 7s - loss: -2.2775e+00 - mutual_info: -3.1593e+00 - entropy: 3.8776 - ser: 0.1880 - ber_from_sym: 0.0651 - ber: 0.0649 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.42858
+Epoch 4/50
+1000/1000 - 7s - loss: -2.2795e+00 - mutual_info: -3.1634e+00 - entropy: 3.8748 - ser: 0.1856 - ber_from_sym: 0.0646 - ber: 0.0642 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.42858
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.2811e+00 - mutual_info: -3.1670e+00 - entropy: 3.8718 - ser: 0.1840 - ber_from_sym: 0.0638 - ber: 0.0638 - ser_from_bits: 1.0000
+
+
+snr=10.00
+Epoch 1/50
+1000/1000 - 8s - loss: -1.8946e+00 - mutual_info: -2.3952e+00 - entropy: 3.9768 - ser: 0.4112 - ber_from_sym: 0.1499 - ber: 0.1407 - ser_from_bits: 0.9997
+
+Epoch 00001: mutual_info improved from -inf to -2.39521, saving model to ./model/modOrder16/snr10.00
+Epoch 2/50
+1000/1000 - 7s - loss: -2.3351e+00 - mutual_info: -3.2339e+00 - entropy: 3.9106 - ser: 0.1759 - ber_from_sym: 0.0551 - ber: 0.0557 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -2.39521
+Epoch 3/50
+1000/1000 - 7s - loss: -2.3424e+00 - mutual_info: -3.2483e+00 - entropy: 3.9025 - ser: 0.1703 - ber_from_sym: 0.0538 - ber: 0.0538 - ser_from_bits: 0.9999
+
+Epoch 00003: mutual_info did not improve from -2.39521
+Epoch 4/50
+1000/1000 - 7s - loss: -2.3447e+00 - mutual_info: -3.2525e+00 - entropy: 3.8998 - ser: 0.1686 - ber_from_sym: 0.0533 - ber: 0.0531 - ser_from_bits: 0.9998
+
+Epoch 00004: mutual_info did not improve from -2.39521
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.3478e+00 - mutual_info: -3.2578e+00 - entropy: 3.8987 - ser: 0.1666 - ber_from_sym: 0.0525 - ber: 0.0524 - ser_from_bits: 0.9997
+
+
+snr=10.40
+Epoch 1/50
+1000/1000 - 8s - loss: -1.9901e+00 - mutual_info: -2.5829e+00 - entropy: 3.9644 - ser: 0.3233 - ber_from_sym: 0.1213 - ber: 0.1300 - ser_from_bits: 0.9998
+
+Epoch 00001: mutual_info improved from -inf to -2.58291, saving model to ./model/modOrder16/snr10.40
+Epoch 2/50
+1000/1000 - 7s - loss: -2.3751e+00 - mutual_info: -3.3113e+00 - entropy: 3.9204 - ser: 0.1593 - ber_from_sym: 0.0503 - ber: 0.0515 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.58291
+Epoch 3/50
+1000/1000 - 7s - loss: -2.3866e+00 - mutual_info: -3.3357e+00 - entropy: 3.9116 - ser: 0.1492 - ber_from_sym: 0.0484 - ber: 0.0488 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.58291
+Epoch 4/50
+1000/1000 - 7s - loss: -2.3901e+00 - mutual_info: -3.3432e+00 - entropy: 3.9061 - ser: 0.1451 - ber_from_sym: 0.0477 - ber: 0.0478 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.58291
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.3920e+00 - mutual_info: -3.3455e+00 - entropy: 3.9041 - ser: 0.1445 - ber_from_sym: 0.0475 - ber: 0.0472 - ser_from_bits: 1.0000
+
+
+snr=10.80
+Epoch 1/50
+1000/1000 - 8s - loss: -2.0424e+00 - mutual_info: -2.6377e+00 - entropy: 3.9684 - ser: 0.3025 - ber_from_sym: 0.1066 - ber: 0.1064 - ser_from_bits: 0.9998
+
+Epoch 00001: mutual_info improved from -inf to -2.63768, saving model to ./model/modOrder16/snr10.80
+Epoch 2/50
+1000/1000 - 7s - loss: -2.4383e+00 - mutual_info: -3.4087e+00 - entropy: 3.9332 - ser: 0.1353 - ber_from_sym: 0.0408 - ber: 0.0415 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.63768
+Epoch 3/50
+1000/1000 - 7s - loss: -2.4424e+00 - mutual_info: -3.4163e+00 - entropy: 3.9287 - ser: 0.1326 - ber_from_sym: 0.0399 - ber: 0.0403 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.63768
+Epoch 4/50
+1000/1000 - 7s - loss: -2.4438e+00 - mutual_info: -3.4183e+00 - entropy: 3.9273 - ser: 0.1316 - ber_from_sym: 0.0395 - ber: 0.0398 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.63768
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.4456e+00 - mutual_info: -3.4197e+00 - entropy: 3.9290 - ser: 0.1320 - ber_from_sym: 0.0393 - ber: 0.0395 - ser_from_bits: 1.0000
+
+
+snr=11.20
+Epoch 1/50
+1000/1000 - 9s - loss: -2.0101e+00 - mutual_info: -2.5968e+00 - entropy: 3.9822 - ser: 0.3262 - ber_from_sym: 0.1126 - ber: 0.1308 - ser_from_bits: 0.9987
+
+Epoch 00001: mutual_info improved from -inf to -2.59682, saving model to ./model/modOrder16/snr11.20
+Epoch 2/50
+1000/1000 - 7s - loss: -2.4443e+00 - mutual_info: -3.4529e+00 - entropy: 3.9411 - ser: 0.1258 - ber_from_sym: 0.0418 - ber: 0.0458 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info did not improve from -2.59682
+Epoch 3/50
+1000/1000 - 7s - loss: -2.4719e+00 - mutual_info: -3.4945e+00 - entropy: 3.9316 - ser: 0.1121 - ber_from_sym: 0.0385 - ber: 0.0394 - ser_from_bits: 0.9999
+
+Epoch 00003: mutual_info did not improve from -2.59682
+Epoch 4/50
+1000/1000 - 7s - loss: -2.4780e+00 - mutual_info: -3.5015e+00 - entropy: 3.9286 - ser: 0.1093 - ber_from_sym: 0.0373 - ber: 0.0375 - ser_from_bits: 0.9999
+
+Epoch 00004: mutual_info did not improve from -2.59682
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.4804e+00 - mutual_info: -3.5048e+00 - entropy: 3.9280 - ser: 0.1084 - ber_from_sym: 0.0368 - ber: 0.0369 - ser_from_bits: 0.9999
+
+
+snr=11.60
+Epoch 1/50
+1000/1000 - 8s - loss: -2.0387e+00 - mutual_info: -2.6514e+00 - entropy: 3.9803 - ser: 0.3260 - ber_from_sym: 0.1259 - ber: 0.1199 - ser_from_bits: 0.9995
+
+Epoch 00001: mutual_info improved from -inf to -2.65144, saving model to ./model/modOrder16/snr11.60
+Epoch 2/50
+1000/1000 - 7s - loss: -2.4882e+00 - mutual_info: -3.5202e+00 - entropy: 3.9479 - ser: 0.1092 - ber_from_sym: 0.0355 - ber: 0.0378 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.65144
+Epoch 3/50
+1000/1000 - 7s - loss: -2.5158e+00 - mutual_info: -3.5647e+00 - entropy: 3.9423 - ser: 0.0958 - ber_from_sym: 0.0317 - ber: 0.0325 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.65144
+Epoch 4/50
+1000/1000 - 7s - loss: -2.5192e+00 - mutual_info: -3.5684e+00 - entropy: 3.9410 - ser: 0.0945 - ber_from_sym: 0.0314 - ber: 0.0317 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.65144
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.5205e+00 - mutual_info: -3.5694e+00 - entropy: 3.9388 - ser: 0.0936 - ber_from_sym: 0.0308 - ber: 0.0312 - ser_from_bits: 1.0000
+
+
+snr=12.00
+Epoch 1/50
+1000/1000 - 8s - loss: -2.0916e+00 - mutual_info: -2.7427e+00 - entropy: 3.9758 - ser: 0.2958 - ber_from_sym: 0.1103 - ber: 0.1075 - ser_from_bits: 0.9991
+
+Epoch 00001: mutual_info improved from -inf to -2.74273, saving model to ./model/modOrder16/snr12.00
+Epoch 2/50
+1000/1000 - 7s - loss: -2.5444e+00 - mutual_info: -3.6168e+00 - entropy: 3.9539 - ser: 0.0849 - ber_from_sym: 0.0279 - ber: 0.0295 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.74273
+Epoch 3/50
+1000/1000 - 7s - loss: -2.5539e+00 - mutual_info: -3.6319e+00 - entropy: 3.9522 - ser: 0.0810 - ber_from_sym: 0.0271 - ber: 0.0280 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.74273
+Epoch 4/50
+1000/1000 - 7s - loss: -2.5562e+00 - mutual_info: -3.6344e+00 - entropy: 3.9520 - ser: 0.0804 - ber_from_sym: 0.0270 - ber: 0.0275 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.74273
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.5580e+00 - mutual_info: -3.6370e+00 - entropy: 3.9515 - ser: 0.0796 - ber_from_sym: 0.0268 - ber: 0.0271 - ser_from_bits: 1.0000
+
+
+snr=12.40
+Epoch 1/50
+1000/1000 - 9s - loss: -2.1223e+00 - mutual_info: -2.8303e+00 - entropy: 3.9782 - ser: 0.2612 - ber_from_sym: 0.1039 - ber: 0.1076 - ser_from_bits: 0.9997
+
+Epoch 00001: mutual_info improved from -inf to -2.83028, saving model to ./model/modOrder16/snr12.40
+Epoch 2/50
+1000/1000 - 7s - loss: -2.5637e+00 - mutual_info: -3.6583e+00 - entropy: 3.9592 - ser: 0.0757 - ber_from_sym: 0.0257 - ber: 0.0285 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.83028
+Epoch 3/50
+1000/1000 - 7s - loss: -2.5847e+00 - mutual_info: -3.6874e+00 - entropy: 3.9571 - ser: 0.0677 - ber_from_sym: 0.0229 - ber: 0.0240 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.83028
+Epoch 4/50
+1000/1000 - 7s - loss: -2.5892e+00 - mutual_info: -3.6910e+00 - entropy: 3.9577 - ser: 0.0675 - ber_from_sym: 0.0226 - ber: 0.0230 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.83028
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.5898e+00 - mutual_info: -3.6902e+00 - entropy: 3.9598 - ser: 0.0680 - ber_from_sym: 0.0228 - ber: 0.0231 - ser_from_bits: 1.0000
+
+
+snr=12.80
+Epoch 1/50
+1000/1000 - 8s - loss: -2.1495e+00 - mutual_info: -2.8205e+00 - entropy: 3.9832 - ser: 0.2589 - ber_from_sym: 0.0942 - ber: 0.0901 - ser_from_bits: 0.9992
+
+Epoch 00001: mutual_info improved from -inf to -2.82053, saving model to ./model/modOrder16/snr12.80
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6105e+00 - mutual_info: -3.7204e+00 - entropy: 3.9728 - ser: 0.0626 - ber_from_sym: 0.0195 - ber: 0.0206 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.82053
+Epoch 3/50
+1000/1000 - 7s - loss: -2.6228e+00 - mutual_info: -3.7462e+00 - entropy: 3.9725 - ser: 0.0566 - ber_from_sym: 0.0181 - ber: 0.0193 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.82053
+Epoch 4/50
+1000/1000 - 7s - loss: -2.6245e+00 - mutual_info: -3.7486e+00 - entropy: 3.9722 - ser: 0.0560 - ber_from_sym: 0.0181 - ber: 0.0189 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.82053
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.6269e+00 - mutual_info: -3.7526e+00 - entropy: 3.9710 - ser: 0.0548 - ber_from_sym: 0.0177 - ber: 0.0185 - ser_from_bits: 1.0000
+
+
+snr=13.20
+Epoch 1/50
+1000/1000 - 8s - loss: -2.0866e+00 - mutual_info: -2.8308e+00 - entropy: 3.9871 - ser: 0.2719 - ber_from_sym: 0.1148 - ber: 0.1306 - ser_from_bits: 0.9994
+
+Epoch 00001: mutual_info improved from -inf to -2.83077, saving model to ./model/modOrder16/snr13.20
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6189e+00 - mutual_info: -3.7559e+00 - entropy: 3.9756 - ser: 0.0534 - ber_from_sym: 0.0195 - ber: 0.0214 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.83077
+Epoch 3/50
+1000/1000 - 7s - loss: -2.6431e+00 - mutual_info: -3.7907e+00 - entropy: 3.9771 - ser: 0.0461 - ber_from_sym: 0.0163 - ber: 0.0176 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.83077
+Epoch 4/50
+1000/1000 - 7s - loss: -2.6493e+00 - mutual_info: -3.7976e+00 - entropy: 3.9773 - ser: 0.0446 - ber_from_sym: 0.0158 - ber: 0.0164 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.83077
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.6505e+00 - mutual_info: -3.7988e+00 - entropy: 3.9758 - ser: 0.0440 - ber_from_sym: 0.0155 - ber: 0.0161 - ser_from_bits: 1.0000
+
+
+snr=13.60
+Epoch 1/50
+1000/1000 - 8s - loss: -2.1659e+00 - mutual_info: -2.9318e+00 - entropy: 3.9891 - ser: 0.2366 - ber_from_sym: 0.0925 - ber: 0.1107 - ser_from_bits: 0.9998
+
+Epoch 00001: mutual_info improved from -inf to -2.93176, saving model to ./model/modOrder16/snr13.60
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6605e+00 - mutual_info: -3.8115e+00 - entropy: 3.9851 - ser: 0.0426 - ber_from_sym: 0.0138 - ber: 0.0147 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.93176
+Epoch 3/50
+1000/1000 - 7s - loss: -2.6713e+00 - mutual_info: -3.8283e+00 - entropy: 3.9842 - ser: 0.0387 - ber_from_sym: 0.0124 - ber: 0.0131 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.93176
+Epoch 4/50
+1000/1000 - 7s - loss: -2.6730e+00 - mutual_info: -3.8306e+00 - entropy: 3.9839 - ser: 0.0382 - ber_from_sym: 0.0122 - ber: 0.0128 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.93176
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.6748e+00 - mutual_info: -3.8331e+00 - entropy: 3.9827 - ser: 0.0373 - ber_from_sym: 0.0118 - ber: 0.0123 - ser_from_bits: 1.0000
+
+
+snr=14.00
+Epoch 1/50
+1000/1000 - 8s - loss: -2.1930e+00 - mutual_info: -2.9209e+00 - entropy: 3.9888 - ser: 0.2293 - ber_from_sym: 0.0921 - ber: 0.0838 - ser_from_bits: 0.9997
+
+Epoch 00001: mutual_info improved from -inf to -2.92091, saving model to ./model/modOrder16/snr14.00
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6854e+00 - mutual_info: -3.8547e+00 - entropy: 3.9896 - ser: 0.0324 - ber_from_sym: 0.0107 - ber: 0.0116 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.92091
+Epoch 3/50
+1000/1000 - 7s - loss: -2.6953e+00 - mutual_info: -3.8728e+00 - entropy: 3.9896 - ser: 0.0288 - ber_from_sym: 0.0097 - ber: 0.0105 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.92091
+Epoch 4/50
+1000/1000 - 7s - loss: -2.6983e+00 - mutual_info: -3.8770e+00 - entropy: 3.9896 - ser: 0.0276 - ber_from_sym: 0.0094 - ber: 0.0100 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.92091
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.6993e+00 - mutual_info: -3.8787e+00 - entropy: 3.9898 - ser: 0.0274 - ber_from_sym: 0.0095 - ber: 0.0099 - ser_from_bits: 1.0000
+
+
+snr=14.40
+Epoch 1/50
+1000/1000 - 8s - loss: -2.2146e+00 - mutual_info: -3.0249e+00 - entropy: 3.9910 - ser: 0.1921 - ber_from_sym: 0.0766 - ber: 0.0966 - ser_from_bits: 0.9995
+
+Epoch 00001: mutual_info improved from -inf to -3.02489, saving model to ./model/modOrder16/snr14.40
+Epoch 2/50
+1000/1000 - 7s - loss: -2.7052e+00 - mutual_info: -3.8879e+00 - entropy: 3.9926 - ser: 0.0252 - ber_from_sym: 0.0083 - ber: 0.0090 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -3.02489
+Epoch 3/50
+1000/1000 - 7s - loss: -2.7131e+00 - mutual_info: -3.9020e+00 - entropy: 3.9927 - ser: 0.0220 - ber_from_sym: 0.0075 - ber: 0.0082 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -3.02489
+Epoch 4/50
+1000/1000 - 7s - loss: -2.7161e+00 - mutual_info: -3.9065e+00 - entropy: 3.9929 - ser: 0.0212 - ber_from_sym: 0.0072 - ber: 0.0077 - ser_from_bits: 0.9999
+
+Epoch 00004: mutual_info did not improve from -3.02489
+Epoch 00004: early stopping
+1000/1000 - 4s - loss: -2.7171e+00 - mutual_info: -3.9076e+00 - entropy: 3.9932 - ser: 0.0210 - ber_from_sym: 0.0072 - ber: 0.0075 - ser_from_bits: 0.9999
+
+
+snr=14.80
+Epoch 1/50
+1000/1000 - 8s - loss: -2.2298e+00 - mutual_info: -3.0083e+00 - entropy: 3.9926 - ser: 0.2055 - ber_from_sym: 0.0778 - ber: 0.0874 - ser_from_bits: 0.9987
+
+Epoch 00001: mutual_info improved from -inf to -3.00832, saving model to ./model/modOrder16/snr14.80
+Epoch 2/50
+1000/1000 - 7s - loss: -2.7086e+00 - mutual_info: -3.8918e+00 - entropy: 3.9941 - ser: 0.0241 - ber_from_sym: 0.0073 - ber: 0.0080 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -3.00832
+Epoch 3/50
+1000/1000 - 7s - loss: -2.7253e+00 - mutual_info: -3.9208e+00 - entropy: 3.9951 - ser: 0.0181 - ber_from_sym: 0.0057 - ber: 0.0063 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -3.00832
+Epoch 4/50
+1000/1000 - 7s - loss: -2.7283e+00 - mutual_info: -3.9260e+00 - entropy: 3.9952 - ser: 0.0169 - ber_from_sym: 0.0055 - ber: 0.0059 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -3.00832
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.7290e+00 - mutual_info: -3.9282e+00 - entropy: 3.9954 - ser: 0.0165 - ber_from_sym: 0.0055 - ber: 0.0060 - ser_from_bits: 1.0000
+
+
+snr=15.20
+Epoch 1/50
+1000/1000 - 8s - loss: -2.2134e+00 - mutual_info: -2.9980e+00 - entropy: 3.9936 - ser: 0.1957 - ber_from_sym: 0.0806 - ber: 0.0830 - ser_from_bits: 0.9998
+
+Epoch 00001: mutual_info improved from -inf to -2.99798, saving model to ./model/modOrder16/snr15.20
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6840e+00 - mutual_info: -3.8527e+00 - entropy: 3.9929 - ser: 0.0340 - ber_from_sym: 0.0118 - ber: 0.0121 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -2.99798
+Epoch 3/50
+1000/1000 - 7s - loss: -2.7164e+00 - mutual_info: -3.9100e+00 - entropy: 3.9943 - ser: 0.0202 - ber_from_sym: 0.0071 - ber: 0.0079 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -2.99798
+Epoch 4/50
+1000/1000 - 7s - loss: -2.7280e+00 - mutual_info: -3.9315e+00 - entropy: 3.9955 - ser: 0.0155 - ber_from_sym: 0.0057 - ber: 0.0067 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -2.99798
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.7327e+00 - mutual_info: -3.9398e+00 - entropy: 3.9961 - ser: 0.0136 - ber_from_sym: 0.0052 - ber: 0.0061 - ser_from_bits: 1.0000
+
+
+snr=15.60
+Epoch 1/50
+1000/1000 - 8s - loss: -2.2239e+00 - mutual_info: -3.0079e+00 - entropy: 3.9949 - ser: 0.1996 - ber_from_sym: 0.0793 - ber: 0.0832 - ser_from_bits: 0.9991
+
+Epoch 00001: mutual_info improved from -inf to -3.00791, saving model to ./model/modOrder16/snr15.60
+Epoch 2/50
+1000/1000 - 7s - loss: -2.6760e+00 - mutual_info: -3.8496e+00 - entropy: 3.9935 - ser: 0.0348 - ber_from_sym: 0.0121 - ber: 0.0150 - ser_from_bits: 1.0000
+
+Epoch 00002: mutual_info did not improve from -3.00791
+Epoch 3/50
+1000/1000 - 7s - loss: -2.7232e+00 - mutual_info: -3.9273e+00 - entropy: 3.9957 - ser: 0.0159 - ber_from_sym: 0.0058 - ber: 0.0076 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info did not improve from -3.00791
+Epoch 4/50
+1000/1000 - 7s - loss: -2.7433e+00 - mutual_info: -3.9554e+00 - entropy: 3.9977 - ser: 0.0099 - ber_from_sym: 0.0036 - ber: 0.0044 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info did not improve from -3.00791
+Epoch 00004: early stopping
+1000/1000 - 3s - loss: -2.7471e+00 - mutual_info: -3.9601e+00 - entropy: 3.9980 - ser: 0.0089 - ber_from_sym: 0.0033 - ber: 0.0037 - ser_from_bits: 1.0000
+run time: 0:18:38.190855

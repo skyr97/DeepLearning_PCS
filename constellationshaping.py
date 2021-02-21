@@ -9,12 +9,13 @@ import matplotlib.pyplot as plt
 from scipy.io import savemat
 from scipy.io import loadmat
 import os
+import shutil
 import json
 import math
 import comm_operation as comm
 
 # global variable
-log_2 = math.log(2.0)
+LOG_2 = math.log(2.0)
 
 # the matrixs can convert one_hot symbol to binary code
 sym2bin_map16 = []
@@ -123,7 +124,7 @@ class EntropyBit(layers.Layer):
     def call(self, inputs, **kwargs):
         p1 = inputs[0]
         p2 = inputs[1]
-        entropy = keras.losses.categorical_crossentropy(p1, p2) / log_2
+        entropy = keras.losses.categorical_crossentropy(p1, p2) / LOG_2
         return entropy
 
 
@@ -290,8 +291,8 @@ class SymbolwiseShaping(BaseConstellationShaping):
             y_true=self.binary_sym, y_pred=self.decode_out_sigmoid)
         entropy_log = keras.losses.categorical_crossentropy(
             self.prob, self.prob)
-        mutual_info_bit = tf.divide(cce-entropy_log, log_2)
-        entropy_bits = tf.divide(entropy_log, log_2)
+        mutual_info_bit = -tf.divide(cce-entropy_log, LOG_2)
+        entropy_bits = tf.divide(entropy_log, LOG_2)
         mix_loss = self.cce_weight*cce+self.bce_weight*bce-entropy_log
         self.model_whole.add_loss(mix_loss)
         self.model_whole.add_metric(mutual_info_bit, name="mutual_info")
@@ -312,12 +313,13 @@ class SymbolwiseShaping(BaseConstellationShaping):
             yield [snr_data, gumbel_data, noise]
 
     def train(self):
-        model_path = "./model/modOrder{M}/snr{snr}".format(M=self.M,snr=self.esn0_snr)
+        model_path = "./model/modOrder{M}/snr{snr:.2f}".format(
+            M=self.M, snr=self.esn0_snr)
         callbacks = [
             keras.callbacks.ModelCheckpoint(
                 filepath=model_path, monitor="mutual_info", verbose=1, save_best_only=True, mode='max'),
             keras.callbacks.EarlyStopping(
-                monitor="mutual_info", patience=2, verbose=1, mode='max')
+                monitor="mutual_info", patience=3, verbose=1, mode='max')
         ]
         self.model_whole.fit(self.infinity_data_generator(), epochs=self.epochs,
                              steps_per_epoch=self.steps_per_epoch, callbacks=callbacks, verbose=2)
@@ -329,7 +331,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
         [vali_dict[keys[0]], vali_dict[keys[1]], vali_dict[keys[2]], vali_dict[keys[3]], vali_dict[keys[4]], vali_dict[keys[5]],
             vali_dict[keys[6]]] = self.model_whole.evaluate(self.infinity_data_generator(), verbose=2, steps=1000)
         # [loss,mutual_info,entropy,ser,ber_from_sym,ber,ser_from_bits]=self.model_whole.evaluate(self.infinity_data_generator(),verbose=2,steps=1000)
-
+        vali_dict["snr"] = self.esn0_snr
         if os.path.exists(matfilename):
             mat_dict = loadmat(matfilename)
         else:
@@ -360,22 +362,25 @@ class SymbolwiseShaping(BaseConstellationShaping):
         image_path = "./images/modOrder{M}".format(M=self.M)
         if not os.path.exists(image_path):
             os.makedirs(image_path)
-        markers=[]
-        base_sym_bin=base_sym_bin.astype(np.int64)
+        markers = []
+        base_sym_bin = base_sym_bin.astype(np.int64)
         for bin in base_sym_bin:
-            s=""
+            s = ""
             for b in bin:
-                s+=str(b)
-            s="$"+s+"$"
+                s += str(b)
+            s = "$"+s+"$"
             markers.append(s)
-        
+
         plt.scatter(base_tx[:, 0], base_tx[:, 1], s=prob_s*500)
-        
+
         for i in range(len(base_tx)):
-            plt.scatter(base_tx[i,0],base_tx[i,1],s=prob_s[i]*5000,marker=markers[i],c='r')
-        plt.savefig(os.path.join(image_path, "snr{snr}_order{M}.png".format(snr=self.esn0_snr,M=self.M)))
+            plt.scatter(base_tx[i, 0], base_tx[i, 1],
+                        s=prob_s[i]*7000, marker=markers[i], c='r')
+        plt.savefig(os.path.join(
+            image_path, "snr{snr:.2f}_order{M}.png".format(snr=self.esn0_snr, M=self.M)))
         plt.close()
-        savemat(os.path.join(image_path,"snr{snr}_order{M}.mat".format(snr=self.esn0_snr,M=self.M)),{"prob":prob_s,"cons":base_tx})
+        savemat(os.path.join(image_path, "snr{snr:.2f}_order{M}.mat".format(
+            snr=self.esn0_snr, M=self.M)), {"prob": prob_s, "cons": base_tx})
 
 
 class BitwiseShaping(BaseConstellationShaping):
@@ -516,11 +521,15 @@ class BitwiseShaping(BaseConstellationShaping):
 
 if __name__ == '__main__':
     comm.set_device(gpu_id=1, gpu_mem=4096)
-    
+
     print("\n\ntf version:", tf.__version__)
     M_dic = {16, 64, 256}
     print("\n\n")
     M = int(input("modOrder(16,64,256):"))
+
+    if M not in M_dic:
+        raise ValueError("the modulation order should be 16, 64 or 256")
+
     start_snr = float(input("start snr:"))
     step_snr = float(input("step snr:"))
     end_snr = float(input("end snr:"))
@@ -528,20 +537,33 @@ if __name__ == '__main__':
     cce_weight = float(input("cce_weight:"))
     bce_weight = float(input("bce_weight:"))
     matfilename = input(".mat file's name:")
-    
-    comm.redirect2log('log.log')
-    
+
+    st = datetime.datetime.now()
+    log_path = "./log"
+    log_name = "g{}.log".format(st.strftime("%m%d_%H%M%S"))
+    if not os.path.exists(log_path):
+        os.makedirs(log_path)
+
+    comm.redirect2log(os.path.join(log_path, log_name))
+    print("M={M}".format(M=M))
+    print("cce_weight={}".format(cce_weight))
+    print("bce_weight={}".format(bce_weight))
+
     if matfilename[-4:] != ".mat":
         matfilename += ".mat"
     if os.path.exists(matfilename):
-        print("deleted old .mat file")
+
+        copy_name = "copy_"+matfilename
+        while os.path.exists(copy_name):
+            copy_name = "copy_"+copy_name
+        print("\n\n{name} has existed, it will be copy to {copy_name}, and then {name} will be recreated\n\n".format(
+            name=matfilename, copy_name=copy_name))
+        shutil.copy(matfilename, copy_name)
         os.remove(matfilename)
 
-    if M not in M_dic:
-        raise ValueError("the modulation order should be 16, 64 or 256")
-    st=datetime.datetime.now()
     snr = start_snr
     while snr <= end_snr:
+        print("\n\nsnr={snr:.2f}".format(snr=snr))
         symwise_shaper = SymbolwiseShaping(
             M=M, snr=snr, epochs=epochs, cce_weight=cce_weight, bce_weight=bce_weight, is_ebn0=False)
         symwise_shaper.create_model()
@@ -549,9 +571,8 @@ if __name__ == '__main__':
         symwise_shaper.evaluate(matfilename=matfilename)
         symwise_shaper.cons_prob_plot()
         snr += step_snr
-    et=datetime.datetime.now()
-    print("run time:",et-st)
-    
+    et = datetime.datetime.now()
+    print("run time:", et-st)
 
     # symwise_shaper = SymbolwiseShaping(M=16,snr=6,epochs=10,cce_weight=0.5,bce_weight=1.0,is_ebn0=False)
     # symwise_shaper.create_model()
