@@ -215,6 +215,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
             axis=-1)([self.sym_onehot, self.binary_sym])
 
     def _cons_mapper(self):
+        self.map_mode = "concat"
         in_phase = layers.Dense(
             self.mapper_nodes, activation='relu')(self.snr_inputs)
         quadra_phase = layers.Dense(
@@ -248,6 +249,36 @@ class SymbolwiseShaping(BaseConstellationShaping):
         # shape:(batch_size,2)
         self.tx_norm = tf.matmul(self.sym_concat, self.mapper_norm)
 
+    def _cons_mapper_onehot(self):
+        self.map_mode = "onehot"
+        in_phase = layers.Dense(
+            self.mapper_nodes, activation='relu')(self.snr_inputs)
+        quadra_phase = layers.Dense(
+            self.mapper_nodes, activation='relu')(self.snr_inputs)
+        for _ in range(self.mapper_layers-1):
+            in_phase = layers.Dense(
+                self.mapper_nodes, activation='relu')(in_phase)
+            quadra_phase = layers.Dense(
+                self.mapper_nodes, activation='relu')(quadra_phase)
+        in_phase = layers.Dense(self.M, activation='linear')(in_phase)
+        quadra_phase = layers.Dense(self.M, activation='linear')(quadra_phase)
+        self.in_phase = tf.reduce_mean(in_phase, axis=0)
+        self.quadra_phase = tf.reduce_mean(quadra_phase, axis=0)
+        self.in_phase = tf.reshape(self.in_phase, shape=[-1, 1])
+        self.quadra_phase = tf.reshape(self.quadra_phase, shape=[-1, 1])
+        self.mapper_unnorm = layers.Concatenate(
+            axis=-1)([self.in_phase, self.quadra_phase])
+        base_sym_onehot = keras.utils.to_categorical(
+            np.arange(self.M), num_classes=self.M)
+        base_cons = tf.matmul(
+            base_sym_onehot, self.mapper_unnorm)  # shape: (M,2)
+        energy = tf.reshape(tf.reduce_sum(
+            tf.math.square(base_cons), axis=-1), shape=[-1, 1])
+        energy = tf.reduce_mean(tf.matmul(self.prob, energy))
+        self.mapper_norm = tf.divide(self.mapper_unnorm, tf.math.sqrt(energy))
+        # shape:(batch_size,2)
+        self.tx_norm = tf.matmul(self.sym_onehot, self.mapper_norm)
+
     def _channel(self):
         self.rx = layers.Add(name="channel")([self.tx_norm, self.noise_inputs])
 
@@ -278,7 +309,8 @@ class SymbolwiseShaping(BaseConstellationShaping):
     def create_model(self):
         self._prob()
         self._symbols()
-        self._cons_mapper()
+        # self._cons_mapper()
+        self._cons_mapper_onehot()
         self._channel()
         self._decode_softmax()
         self._decode_sigmoid()
@@ -344,8 +376,11 @@ class SymbolwiseShaping(BaseConstellationShaping):
         savemat(matfilename, mat_dict)
 
     def cons_prob_plot(self):
-        self.sym_inputs = keras.Input(
-            shape=self.M+self.bits_per_sym, name="symbol_input")
+        if self.map_mode == "concat":
+            self.sym_inputs = keras.Input(
+                shape=self.M+self.bits_per_sym, name="symbol_input")
+        else:
+            self.sym_inputs = keras.Input(shape=self.M, name="symbol_input")
         tx_norm = tf.matmul(self.sym_inputs, self.mapper_norm)
         self.tx_norm_model = keras.Model(
             inputs=[self.snr_inputs, self.sym_inputs], outputs=tx_norm)
@@ -354,7 +389,10 @@ class SymbolwiseShaping(BaseConstellationShaping):
         base_sym_bin = np.matmul(base_sym_onehot, mapper_dict[self.M])
         base_sym_concat = np.concatenate((base_sym_onehot, base_sym_bin), -1)
         snr_data = self.esn0_snr*np.ones(shape=[self.M, 1], dtype='float32')
-        base_tx = self.tx_norm_model([snr_data, base_sym_concat]).numpy()
+        if self.map_mode=="concat":
+            base_tx = self.tx_norm_model([snr_data, base_sym_concat]).numpy()
+        else:
+            base_tx = self.tx_norm_model([snr_data, base_sym_onehot]).numpy()
         prob_s = self.prob_model(snr_data).numpy()
         prob_s = prob_s[0]
 
@@ -549,10 +587,10 @@ if __name__ == '__main__':
     print("cce_weight={}".format(cce_weight))
     print("bce_weight={}".format(bce_weight))
 
-    if matfilename[-4:] != ".mat":
+    if len(matfilename) <= 4 or matfilename[-4:] != ".mat":
         matfilename += ".mat"
-    if os.path.exists(matfilename):
 
+    if os.path.exists(matfilename):
         copy_name = "copy_"+matfilename
         while os.path.exists(copy_name):
             copy_name = "copy_"+copy_name
@@ -568,7 +606,8 @@ if __name__ == '__main__':
             M=M, snr=snr, epochs=epochs, cce_weight=cce_weight, bce_weight=bce_weight, is_ebn0=False)
         symwise_shaper.create_model()
         symwise_shaper.train()
-        symwise_shaper.evaluate(matfilename=matfilename)
+        if matfilename != ".mat":
+            symwise_shaper.evaluate(matfilename=matfilename)
         symwise_shaper.cons_prob_plot()
         snr += step_snr
     et = datetime.datetime.now()
