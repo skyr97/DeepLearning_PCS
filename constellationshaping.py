@@ -260,14 +260,26 @@ class SymbolwiseShaping(BaseConstellationShaping):
                 self.mapper_nodes, activation='relu')(in_phase)
             quadra_phase = layers.Dense(
                 self.mapper_nodes, activation='relu')(quadra_phase)
-        in_phase = layers.Dense(self.M, activation='linear')(in_phase)
-        quadra_phase = layers.Dense(self.M, activation='linear')(quadra_phase)
+        in_phase = layers.Dense(self.M//4, activation='linear')(in_phase)
+        quadra_phase = layers.Dense(
+            self.M//4, activation='linear')(quadra_phase)
+
         self.in_phase = tf.reduce_mean(in_phase, axis=0)
         self.quadra_phase = tf.reduce_mean(quadra_phase, axis=0)
         self.in_phase = tf.reshape(self.in_phase, shape=[-1, 1])
         self.quadra_phase = tf.reshape(self.quadra_phase, shape=[-1, 1])
-        self.mapper_unnorm = layers.Concatenate(
+
+        quadrarant_1st = layers.Concatenate(
             axis=-1)([self.in_phase, self.quadra_phase])
+        quadrarant_2nd = layers.Concatenate(
+            axis=-1)([-self.in_phase, self.quadra_phase])
+        quadrarant_3th = layers.Concatenate(
+            axis=-1)([-self.in_phase, -self.quadra_phase])
+        quadrarant_4th = layers.Concatenate(
+            axis=-1)([self.in_phase, -self.quadra_phase])
+        # self.mapper_unnorm = layers.Concatenate(axis=-1)([self.in_phase, self.quadra_phase])
+        self.mapper_unnorm = layers.Concatenate(axis=0)(
+            [quadrarant_1st, quadrarant_2nd, quadrarant_3th, quadrarant_4th])
         base_sym_onehot = keras.utils.to_categorical(
             np.arange(self.M), num_classes=self.M)
         base_cons = tf.matmul(
@@ -389,7 +401,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
         base_sym_bin = np.matmul(base_sym_onehot, mapper_dict[self.M])
         base_sym_concat = np.concatenate((base_sym_onehot, base_sym_bin), -1)
         snr_data = self.esn0_snr*np.ones(shape=[self.M, 1], dtype='float32')
-        if self.map_mode=="concat":
+        if self.map_mode == "concat":
             base_tx = self.tx_norm_model([snr_data, base_sym_concat]).numpy()
         else:
             base_tx = self.tx_norm_model([snr_data, base_sym_onehot]).numpy()
