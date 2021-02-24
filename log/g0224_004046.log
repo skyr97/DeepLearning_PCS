@@ -1,0 +1,28 @@
+M=16
+cce_weight=0.5
+bce_weight=1.0
+
+
+snr=5.00
+Epoch 1/10
+1000/1000 - 9s - loss: -1.4628e+00 - mutual_info: 1.6706 - entropy: 3.9037 - ser: 0.5685 - ber_from_sym: 0.2528 - ber: 0.2373 - ser_from_bits: 0.9950
+
+Epoch 00001: mutual_info improved from -inf to 1.67063, saving model to ./model/modOrder16/snr5.00
+Epoch 2/10
+1000/1000 - 7s - loss: -1.6335e+00 - mutual_info: 2.0191 - entropy: 3.8042 - ser: 0.4945 - ber_from_sym: 0.1874 - ber: 0.1860 - ser_from_bits: 0.9997
+
+Epoch 00002: mutual_info improved from 1.67063 to 2.01915, saving model to ./model/modOrder16/snr5.00
+Epoch 3/10
+1000/1000 - 7s - loss: -1.6388e+00 - mutual_info: 2.0187 - entropy: 3.8096 - ser: 0.4960 - ber_from_sym: 0.1856 - ber: 0.1842 - ser_from_bits: 0.9996
+
+Epoch 00003: mutual_info did not improve from 2.01915
+Epoch 4/10
+1000/1000 - 7s - loss: -1.6401e+00 - mutual_info: 2.0177 - entropy: 3.8119 - ser: 0.4972 - ber_from_sym: 0.1853 - ber: 0.1841 - ser_from_bits: 0.9996
+
+Epoch 00004: mutual_info did not improve from 2.01915
+Epoch 5/10
+1000/1000 - 7s - loss: -1.6398e+00 - mutual_info: 2.0158 - entropy: 3.8122 - ser: 0.4977 - ber_from_sym: 0.1849 - ber: 0.1837 - ser_from_bits: 0.9996
+
+Epoch 00005: mutual_info did not improve from 2.01915
+Epoch 00005: early stopping
+run time: 0:00:47.159688
