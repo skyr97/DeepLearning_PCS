@@ -1,0 +1,4 @@
+M=16
+cce_weight=0.5
+bce_weight=1.0
+run time: 0:00:00.000512

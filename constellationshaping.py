@@ -202,8 +202,8 @@ class SymbolwiseShaping(BaseConstellationShaping):
         self.logits = layers.Dense(
             self.M, activation='linear', name="logits")(logits)
         self.prob = layers.Softmax(name="softmax_prob")(self.logits)
-        self.prob_model = keras.Model(
-            inputs=self.snr_inputs, outputs=self.prob)
+        # self.prob_model = keras.Model(
+        #     inputs=self.snr_inputs, outputs=self.prob)
 
     def _symbols(self):
         self.sym_sample = layers.Softmax()(self.gumbel_inputs + self.logits)
@@ -363,7 +363,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
             keras.callbacks.ModelCheckpoint(
                 filepath=model_path, monitor="mutual_info", verbose=1, save_best_only=True, mode='max'),
             keras.callbacks.EarlyStopping(
-                monitor="mutual_info", patience=3, verbose=1, mode='max')
+                monitor="mutual_info", patience=4, verbose=1, mode='max')
         ]
         self.model_whole.fit(self.infinity_data_generator(), epochs=self.epochs,
                              steps_per_epoch=self.steps_per_epoch, callbacks=callbacks, verbose=2)
@@ -405,6 +405,7 @@ class SymbolwiseShaping(BaseConstellationShaping):
             base_tx = self.tx_norm_model([snr_data, base_sym_concat]).numpy()
         else:
             base_tx = self.tx_norm_model([snr_data, base_sym_onehot]).numpy()
+        self.prob_model = keras.Model(inputs=self.snr_inputs,outputs=self.model_whole.get_layer(name="softmax_prob").output)
         prob_s = self.prob_model(snr_data).numpy()
         prob_s = prob_s[0]
 
