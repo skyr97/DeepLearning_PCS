@@ -199,8 +199,10 @@ class SymbolwiseShaping(BaseConstellationShaping):
             self.prob_nodes, activation='relu')(self.snr_inputs)
         for _ in range(self.prob_layers-1):
             logits = layers.Dense(self.prob_nodes, activation='relu')(logits)
-        self.logits = layers.Dense(
-            self.M, activation='linear', name="logits")(logits)
+        logits = layers.Dense(self.M//4,activation='linear')(logits)
+        self.logits = layers.Concatenate(axis=-1,name="logits")([logits,logits,logits,logits])
+        # self.logits = layers.Dense(
+        #     self.M, activation='linear', name="logits")(logits)
         self.prob = layers.Softmax(name="softmax_prob")(self.logits)
         # self.prob_model = keras.Model(
         #     inputs=self.snr_inputs, outputs=self.prob)
