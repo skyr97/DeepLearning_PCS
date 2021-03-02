@@ -1,0 +1,72 @@
+M=16
+cce_weight=0.5
+bce_weight=1.0
+
+
+snr=7.00
+Epoch 1/50
+1000/1000 - 9s - loss: -1.6577e+00 - mutual_info: 1.9168 - entropy: 3.9651 - ser: 0.5481 - ber_from_sym: 0.2049 - ber: 0.1997 - ser_from_bits: 0.9959
+
+Epoch 00001: mutual_info improved from -inf to 1.91679, saving model to ./model/modOrder16/snr7.00
+Epoch 2/50
+1000/1000 - 7s - loss: -1.9448e+00 - mutual_info: 2.4981 - entropy: 3.8842 - ser: 0.3722 - ber_from_sym: 0.1186 - ber: 0.1179 - ser_from_bits: 0.9999
+
+Epoch 00002: mutual_info improved from 1.91679 to 2.49815, saving model to ./model/modOrder16/snr7.00
+Epoch 3/50
+1000/1000 - 7s - loss: -1.9492e+00 - mutual_info: 2.5108 - entropy: 3.8636 - ser: 0.3621 - ber_from_sym: 0.1143 - ber: 0.1141 - ser_from_bits: 1.0000
+
+Epoch 00003: mutual_info improved from 2.49815 to 2.51076, saving model to ./model/modOrder16/snr7.00
+Epoch 4/50
+1000/1000 - 7s - loss: -1.9486e+00 - mutual_info: 2.5123 - entropy: 3.8559 - ser: 0.3598 - ber_from_sym: 0.1136 - ber: 0.1134 - ser_from_bits: 1.0000
+
+Epoch 00004: mutual_info improved from 2.51076 to 2.51232, saving model to ./model/modOrder16/snr7.00
+Epoch 5/50
+1000/1000 - 7s - loss: -1.9497e+00 - mutual_info: 2.5149 - entropy: 3.8535 - ser: 0.3584 - ber_from_sym: 0.1130 - ber: 0.1128 - ser_from_bits: 1.0000
+
+Epoch 00005: mutual_info improved from 2.51232 to 2.51491, saving model to ./model/modOrder16/snr7.00
+Epoch 6/50
+1000/1000 - 8s - loss: -1.9501e+00 - mutual_info: 2.5159 - entropy: 3.8530 - ser: 0.3578 - ber_from_sym: 0.1128 - ber: 0.1127 - ser_from_bits: 1.0000
+
+Epoch 00006: mutual_info improved from 2.51491 to 2.51590, saving model to ./model/modOrder16/snr7.00
+Epoch 7/50
+1000/1000 - 7s - loss: -1.9499e+00 - mutual_info: 2.5161 - entropy: 3.8518 - ser: 0.3577 - ber_from_sym: 0.1128 - ber: 0.1127 - ser_from_bits: 1.0000
+
+Epoch 00007: mutual_info improved from 2.51590 to 2.51605, saving model to ./model/modOrder16/snr7.00
+Epoch 8/50
+1000/1000 - 7s - loss: -1.9504e+00 - mutual_info: 2.5173 - entropy: 3.8508 - ser: 0.3572 - ber_from_sym: 0.1127 - ber: 0.1125 - ser_from_bits: 1.0000
+
+Epoch 00008: mutual_info improved from 2.51605 to 2.51732, saving model to ./model/modOrder16/snr7.00
+Epoch 9/50
+1000/1000 - 7s - loss: -1.9505e+00 - mutual_info: 2.5172 - entropy: 3.8510 - ser: 0.3568 - ber_from_sym: 0.1124 - ber: 0.1123 - ser_from_bits: 1.0000
+
+Epoch 00009: mutual_info did not improve from 2.51732
+Epoch 10/50
+1000/1000 - 7s - loss: -1.9498e+00 - mutual_info: 2.5159 - entropy: 3.8511 - ser: 0.3577 - ber_from_sym: 0.1128 - ber: 0.1127 - ser_from_bits: 1.0000
+
+Epoch 00010: mutual_info did not improve from 2.51732
+Epoch 11/50
+1000/1000 - 7s - loss: -1.9506e+00 - mutual_info: 2.5177 - entropy: 3.8506 - ser: 0.3570 - ber_from_sym: 0.1126 - ber: 0.1125 - ser_from_bits: 1.0000
+
+Epoch 00011: mutual_info improved from 2.51732 to 2.51769, saving model to ./model/modOrder16/snr7.00
+Epoch 12/50
+1000/1000 - 7s - loss: -1.9510e+00 - mutual_info: 2.5183 - entropy: 3.8515 - ser: 0.3568 - ber_from_sym: 0.1125 - ber: 0.1124 - ser_from_bits: 1.0000
+
+Epoch 00012: mutual_info improved from 2.51769 to 2.51828, saving model to ./model/modOrder16/snr7.00
+Epoch 13/50
+1000/1000 - 7s - loss: -1.9508e+00 - mutual_info: 2.5182 - entropy: 3.8510 - ser: 0.3567 - ber_from_sym: 0.1126 - ber: 0.1125 - ser_from_bits: 1.0000
+
+Epoch 00013: mutual_info did not improve from 2.51828
+Epoch 14/50
+1000/1000 - 7s - loss: -1.9507e+00 - mutual_info: 2.5174 - entropy: 3.8515 - ser: 0.3575 - ber_from_sym: 0.1127 - ber: 0.1126 - ser_from_bits: 1.0000
+
+Epoch 00014: mutual_info did not improve from 2.51828
+Epoch 15/50
+1000/1000 - 7s - loss: -1.9508e+00 - mutual_info: 2.5176 - entropy: 3.8517 - ser: 0.3575 - ber_from_sym: 0.1127 - ber: 0.1126 - ser_from_bits: 1.0000
+
+Epoch 00015: mutual_info did not improve from 2.51828
+Epoch 16/50
+1000/1000 - 7s - loss: -1.9507e+00 - mutual_info: 2.5176 - entropy: 3.8510 - ser: 0.3571 - ber_from_sym: 0.1125 - ber: 0.1125 - ser_from_bits: 1.0000
+
+Epoch 00016: mutual_info did not improve from 2.51828
+Epoch 00016: early stopping
+run time: 0:02:36.956513
